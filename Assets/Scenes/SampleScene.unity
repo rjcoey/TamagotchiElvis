@@ -601,6 +601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <UsePoint>k__BackingField: {fileID: 1266487936}
+  resourceFillRate: 10
 --- !u!1 &820333871
 GameObject:
   m_ObjectHideFlags: 0
