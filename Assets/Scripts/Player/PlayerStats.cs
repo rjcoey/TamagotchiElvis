@@ -14,6 +14,9 @@ public class PlayerStats : MonoBehaviour
     public float CurrentHappiness { get; private set; }
     public float CurrentTalent { get; private set; }
 
+    public bool IsEating { get; private set; } = false;
+    public bool IsEntertained { get; private set; } = false;
+
     void Start()
     {
         CurrentHunger = MaxHunger;
@@ -25,6 +28,42 @@ public class PlayerStats : MonoBehaviour
 
     private void Update()
     {
-        CurrentHunger = Mathf.Max(CurrentHunger - hungerDecayRate * Time.deltaTime, 0.0f);
+        if (!IsEating)
+            CurrentHunger = LoseResource(CurrentHunger, hungerDecayRate * Time.deltaTime);
+
+        if (!IsEntertained)
+            CurrentHappiness = LoseResource(CurrentHappiness, happinessDecayRate * Time.deltaTime);
+    }
+
+    public void Eat(float hungerGainRate)
+    {
+        CurrentHunger = FillResource(CurrentHunger, hungerGainRate * Time.deltaTime, MaxHunger);
+        IsEating = true;
+    }
+
+    public void StopEating()
+    {
+        IsEating = false;
+    }
+
+    public void WatchTV(float happinessGainRate)
+    {
+        CurrentHappiness = FillResource(CurrentHappiness, happinessGainRate * Time.deltaTime, MaxHappiness);
+        IsEntertained = true;
+    }
+
+    public void StopWatchingTV()
+    {
+        IsEntertained = false;
+    }
+
+    public float FillResource(float currentAmount, float amountToGain, float maxValue)
+    {
+        return Mathf.Min(currentAmount + amountToGain, maxValue);
+    }
+
+    private float LoseResource(float currentAmount, float amountToLose)
+    {
+        return Mathf.Max(currentAmount - amountToLose, 0.0f);
     }
 }
