@@ -2,11 +2,26 @@ public class Fridge : Resource
 {
     public override void Use(PlayerStats playerStats)
     {
-        playerStats.Eat(resourceFillRate);
+        Eat(playerStats);
     }
 
-    public override void StopUsing(PlayerStats playerStats)
+    public override void StopUsing()
     {
-        playerStats.StopEating();
+        StopEating();
+    }
+
+    public void Eat(PlayerStats stats)
+    {
+        if (!IsEating)
+        {
+            IsEating = true;
+        }
+
+        stats.FillHunger(resourceFillRate);
+    }
+
+    public void StopEating()
+    {
+        IsEating = false;
     }
 }

@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
-
 public class PlayerController : MonoBehaviour
 {
     private NavMeshAgent agent;
@@ -11,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private InputAction clickAction;
 
     private Resource currentResource;
+
 
     void Awake()
     {
@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!playerStats.IsGameRunning) return;
+
         Vector2 screenPosition = pointAction.ReadValue<Vector2>();
 
         if (clickAction.WasCompletedThisFrame())
@@ -34,14 +36,25 @@ public class PlayerController : MonoBehaviour
             {
                 if (hit.collider.TryGetComponent(out Resource resource))
                 {
-                    currentResource = resource;
-                    agent.SetDestination(resource.UsePoint.position);
+                    if (currentResource != resource)
+                    {
+                        if (currentResource != null)
+                        {
+                            currentResource.StopUsing();
+                        }
+                        currentResource = resource;
+                        agent.SetDestination(resource.UsePoint.position);
+                    }
                 }
                 else
                 {
                     agent.SetDestination(hit.point);
-                    currentResource.StopUsing(playerStats);
-                    currentResource = null;
+
+                    if (currentResource != null)
+                    {
+                        currentResource.StopUsing();
+                        currentResource = null;
+                    }
                 }
             }
         }

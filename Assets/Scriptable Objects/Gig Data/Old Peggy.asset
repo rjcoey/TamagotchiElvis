@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e24299ad84b7ca741a0c9fc8fc10b45d, type: 3}
+  m_Name: Old Peggy
+  m_EditorClassIdentifier: 
+  <GigLocation>k__BackingField: Old Peggy's Family Eatery
+  <DaysUntilGig>k__BackingField: 2
+  <BaseGigCash>k__BackingField: 100
+  <GigCashRating>k__BackingField: 2
+  <BaseGigFans>k__BackingField: 50
+  <GigFansRating>k__BackingField: 1

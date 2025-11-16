@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -6,58 +7,81 @@ public class PlayerStats : MonoBehaviour
     [field: SerializeField] public float MaxHappiness { get; private set; } = 100.0f;
     [field: SerializeField] public float MaxTalent { get; private set; } = 100.0f;
 
-    [SerializeField] private float hungerDecayRate = 1.0f;
-    [SerializeField] private float happinessDecayRate = 1.0f;
-    [SerializeField] private float talentDecayRate = 1.0f;
-
     public float CurrentHunger { get; private set; }
     public float CurrentHappiness { get; private set; }
     public float CurrentTalent { get; private set; }
 
-    public bool IsEating { get; private set; } = false;
-    public bool IsEntertained { get; private set; } = false;
+    [SerializeField] private float startHunger = 50.0f;
+    [SerializeField] private float startHappiness = 50.0f;
+    [SerializeField] private float startTalent = 50.0f;
+
+    [SerializeField] private float hungerDecayRate = 1.0f;
+    [SerializeField] private float happinessDecayRate = 1.0f;
+    [SerializeField] private float talentDecayRate = 1.0f;
+
+    public bool IsGameRunning { get; private set; } = false;
+
+    void OnEnable()
+    {
+        ClockEventBus.OnStartDay += ResumeGame;
+        PlayerEventBus.OnPauseGame += PauseGame;
+    }
+
+    void OnDisable()
+    {
+        ClockEventBus.OnStartDay -= ResumeGame;
+        PlayerEventBus.OnPauseGame -= PauseGame;
+    }
 
     void Start()
     {
-        CurrentHunger = MaxHunger;
-        CurrentHappiness = MaxHappiness;
-        CurrentTalent = MaxTalent;
+        CurrentHunger = startHunger;
+        CurrentHappiness = startHappiness;
+        CurrentTalent = startTalent;
 
-        PlayerEventBus.RaiseGameStart(this);
+        PlayerEventBus.RaiseStartGame(this);
     }
 
     private void Update()
     {
-        if (!IsEating)
+        if (!IsGameRunning) return;
+
+        if (!Resource.IsEating)
             CurrentHunger = LoseResource(CurrentHunger, hungerDecayRate * Time.deltaTime);
 
-        if (!IsEntertained)
+        if (!Resource.IsHappy)
             CurrentHappiness = LoseResource(CurrentHappiness, happinessDecayRate * Time.deltaTime);
+
+        if (!Resource.IsPractising)
+            CurrentTalent = LoseResource(CurrentTalent, talentDecayRate * Time.deltaTime);
     }
 
-    public void Eat(float hungerGainRate)
+    private void ResumeGame()
     {
-        CurrentHunger = FillResource(CurrentHunger, hungerGainRate * Time.deltaTime, MaxHunger);
-        IsEating = true;
+        IsGameRunning = true;
     }
 
-    public void StopEating()
+    private void PauseGame()
     {
-        IsEating = false;
+        IsGameRunning = false;
     }
 
-    public void WatchTV(float happinessGainRate)
+    public void FillHunger(float fillRate)
     {
-        CurrentHappiness = FillResource(CurrentHappiness, happinessGainRate * Time.deltaTime, MaxHappiness);
-        IsEntertained = true;
+        CurrentHunger = FillResource(CurrentHunger, fillRate * Time.deltaTime, MaxHunger);
     }
 
-    public void StopWatchingTV()
+    public void FillHappiness(float fillRate)
     {
-        IsEntertained = false;
+        CurrentHappiness = FillResource(CurrentHappiness, fillRate * Time.deltaTime, MaxHappiness);
     }
 
-    public float FillResource(float currentAmount, float amountToGain, float maxValue)
+    public void FillTalent(float fillRate)
+    {
+        CurrentTalent = FillResource(CurrentTalent, fillRate * Time.deltaTime, MaxHappiness);
+    }
+
+    private float FillResource(float currentAmount, float amountToGain, float maxValue)
     {
         return Mathf.Min(currentAmount + amountToGain, maxValue);
     }

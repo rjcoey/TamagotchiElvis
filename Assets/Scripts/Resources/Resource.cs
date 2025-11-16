@@ -5,6 +5,11 @@ public class Resource : MonoBehaviour
     [field: SerializeField] public Transform UsePoint { get; private set; }
     [SerializeField] protected float resourceFillRate = 5.0f;
 
+    public static bool IsEating = false;
+    public static bool IsHappy = false;
+    public static bool IsPractising = false;
+
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -14,5 +19,5 @@ public class Resource : MonoBehaviour
     }
 
     public virtual void Use(PlayerStats playerStats) { }
-    public virtual void StopUsing(PlayerStats playerStats) { }
+    public virtual void StopUsing() { }
 }

@@ -9,12 +9,18 @@ public class HappinessUI : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerEventBus.OnGameStart += SetPlayerStats;
+        PlayerEventBus.OnStartGame += SetPlayerStats;
     }
 
     void OnDisable()
     {
-        PlayerEventBus.OnGameStart -= SetPlayerStats;
+        PlayerEventBus.OnStartGame -= SetPlayerStats;
+    }
+
+    void Update()
+    {
+        if (playerStats == null) return;
+        happinessFill.fillAmount = playerStats.CurrentHappiness / playerStats.MaxHappiness;
     }
 
     private void SetPlayerStats(PlayerStats stats)
