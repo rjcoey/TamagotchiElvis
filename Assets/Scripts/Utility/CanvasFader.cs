@@ -12,6 +12,11 @@ public class CanvasFader : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
+    public void SetAlphaImmediate(float value)
+    {
+        canvasGroup.alpha = value;
+    }
+
     public void StartFadeIn(float fadeTime = 2.0f)
     {
         StartCoroutine(Fade(0, 1, fadeTime));
@@ -25,7 +30,6 @@ public class CanvasFader : MonoBehaviour
     public IEnumerator Fade(float startAlpha, float endAlpha, float duration)
     {
         float timeElapsed = 0f;
-        canvasGroup.interactable = false;
 
         while (timeElapsed < duration)
         {

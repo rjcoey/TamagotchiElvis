@@ -18,3 +18,33 @@ MonoBehaviour:
   <GigCashRating>k__BackingField: 1
   <BaseGigFans>k__BackingField: 100
   <GigFansRating>k__BackingField: 2
+  <PositiveReview>k__BackingField: Dirty Dan does it again, booking an excellent
+    upcoming band to play in his toilet.
+  <NeutralReview>k__BackingField: Although promising, this performer wasn't quite
+    able to overcome the sensory experience of Dan's toilet.
+  <NegativeReview>k__BackingField: The most interesting part of the night was when
+    Dan when for his evening ablutions.
+  <GigDifficultyCurve>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

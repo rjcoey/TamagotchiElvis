@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    [field: SerializeField] public AnimationCurve PerformanceCurve = default;
     [field: SerializeField] public float MaxHunger { get; private set; } = 100.0f;
     [field: SerializeField] public float MaxHappiness { get; private set; } = 100.0f;
     [field: SerializeField] public float MaxTalent { get; private set; } = 100.0f;
@@ -10,6 +11,32 @@ public class PlayerStats : MonoBehaviour
     public float CurrentHunger { get; private set; }
     public float CurrentHappiness { get; private set; }
     public float CurrentTalent { get; private set; }
+
+    public float GetHungerScore
+    {
+        get
+        {
+            return CurrentHunger / MaxHunger;
+        }
+    }
+    public float GetHappinessScore
+    {
+        get
+        {
+            return CurrentHappiness / MaxHappiness;
+        }
+    }
+
+    public float GetTalentScore
+    {
+        get
+        {
+            return CurrentTalent / MaxTalent;
+        }
+    }
+
+    public bool IsGameRunning { get; private set; } = false;
+
 
     [SerializeField] private float startHunger = 50.0f;
     [SerializeField] private float startHappiness = 50.0f;
@@ -19,7 +46,6 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float happinessDecayRate = 1.0f;
     [SerializeField] private float talentDecayRate = 1.0f;
 
-    public bool IsGameRunning { get; private set; } = false;
 
     void OnEnable()
     {

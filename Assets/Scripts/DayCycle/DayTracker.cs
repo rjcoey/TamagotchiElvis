@@ -63,7 +63,8 @@ public class DayTracker : MonoBehaviour
             PlayerEventBus.RaisePauseGame();
             if (daysUntilGig == 0)
             {
-                Debug.Log("Play gig here");
+                GigEventBus.RaisePlayGig(currentGigData);
+                currentGigData = null;
             }
             else
             {

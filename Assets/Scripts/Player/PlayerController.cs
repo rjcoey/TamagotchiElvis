@@ -11,6 +11,17 @@ public class PlayerController : MonoBehaviour
 
     private Resource currentResource;
 
+    void OnEnable()
+    {
+        PlayerEventBus.OnPauseGame += CancelActions;
+        PlayerEventBus.OnResumeGame += ResumeAction;
+    }
+
+    void OnDisable()
+    {
+        PlayerEventBus.OnPauseGame -= CancelActions;
+        PlayerEventBus.OnResumeGame -= ResumeAction;
+    }
 
     void Awake()
     {
@@ -66,5 +77,17 @@ public class PlayerController : MonoBehaviour
                 currentResource.Use(playerStats);
             }
         }
+    }
+
+    private void ResumeAction()
+    {
+        agent.isStopped = false;
+    }
+
+    private void CancelActions()
+    {
+        agent.ResetPath();
+        agent.isStopped = true;
+        currentResource = null;
     }
 }

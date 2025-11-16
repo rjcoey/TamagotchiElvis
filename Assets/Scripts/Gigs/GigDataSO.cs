@@ -9,4 +9,8 @@ public class GigDataSO : ScriptableObject
     [field: SerializeField] public int GigCashRating { get; private set; }
     [field: SerializeField] public int BaseGigFans { get; private set; }
     [field: SerializeField] public int GigFansRating { get; private set; }
+    [field: SerializeField] public string PositiveReview { get; private set; }
+    [field: SerializeField] public string NeutralReview { get; private set; }
+    [field: SerializeField] public string NegativeReview { get; private set; }
+    [field: SerializeField] public AnimationCurve GigDifficultyCurve { get; private set; }
 }

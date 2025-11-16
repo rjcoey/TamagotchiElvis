@@ -13,8 +13,38 @@ MonoBehaviour:
   m_Name: Old Peggy
   m_EditorClassIdentifier: 
   <GigLocation>k__BackingField: Old Peggy's Family Eatery
-  <DaysUntilGig>k__BackingField: 2
+  <DaysUntilGig>k__BackingField: 3
   <BaseGigCash>k__BackingField: 100
   <GigCashRating>k__BackingField: 2
   <BaseGigFans>k__BackingField: 50
   <GigFansRating>k__BackingField: 1
+  <PositiveReview>k__BackingField: 'Old Peggy''s going to need a second hearing aid
+    after having her roof blown off last night! '
+  <NeutralReview>k__BackingField: Not quite the family style that Old Peggy's is
+    known for, but still an somewhat enjoyable experience.
+  <NegativeReview>k__BackingField: Old Peggy has lost her marbles if she thinks this
+    is acceptable Saturday night entertainment.
+  <GigDifficultyCurve>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
