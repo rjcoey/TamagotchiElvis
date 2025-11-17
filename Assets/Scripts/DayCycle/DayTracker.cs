@@ -17,23 +17,29 @@ public class DayTracker : MonoBehaviour
     private int lastUpdatedMinute = -1;
 
     private bool dayComplete = true;
+    private bool isTimerPaused = false;
     private string inGameTime;
 
     void OnEnable()
     {
         GigEventBus.OnGigSelected += SetCurrentGig;
         ClockEventBus.OnStartDay += StartDay;
+        ClockEventBus.OnPauseTimer += PauseTimer;
+        ClockEventBus.OnResumeTimer += ResumeTimer;
     }
 
     void OnDisable()
     {
         GigEventBus.OnGigSelected -= SetCurrentGig;
         ClockEventBus.OnStartDay -= StartDay;
+        ClockEventBus.OnPauseTimer -= PauseTimer;
+        ClockEventBus.OnResumeTimer -= ResumeTimer;
     }
 
     void Update()
     {
         if (dayComplete) return;
+        if (isTimerPaused) return;
 
         realElapsedTime += Time.deltaTime;
 
@@ -60,7 +66,7 @@ public class DayTracker : MonoBehaviour
             ClockEventBus.RaiseTimeChanged(inGameTime);
             daysUntilGig--;
 
-            PlayerEventBus.RaisePauseGame();
+            PlayerEventBus.RaisePausePlayer();
             if (daysUntilGig == 0)
             {
                 GigEventBus.RaisePlayGig(currentGigData);
@@ -85,5 +91,15 @@ public class DayTracker : MonoBehaviour
     {
         dayComplete = false;
         realElapsedTime = 0.0f;
+    }
+
+    void PauseTimer()
+    {
+        isTimerPaused = true;
+    }
+
+    void ResumeTimer()
+    {
+        isTimerPaused = false;
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+
 public class PlayerController : MonoBehaviour
 {
     private NavMeshAgent agent;
@@ -13,14 +14,23 @@ public class PlayerController : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerEventBus.OnPauseGame += CancelActions;
-        PlayerEventBus.OnResumeGame += ResumeAction;
+        PlayerEventBus.OnPausePlayer += CancelActions;
+        PlayerEventBus.OnResumePlayer += ResumeAction;
+        GameEndEventBus.OnGameOver += GameOver;
+
+
+        pointAction?.Enable();
+        clickAction?.Enable();
     }
 
     void OnDisable()
     {
-        PlayerEventBus.OnPauseGame -= CancelActions;
-        PlayerEventBus.OnResumeGame -= ResumeAction;
+        PlayerEventBus.OnPausePlayer -= CancelActions;
+        PlayerEventBus.OnResumePlayer -= ResumeAction;
+        GameEndEventBus.OnGameOver -= GameOver;
+
+        // pointAction?.Disable();
+        // clickAction?.Disable();
     }
 
     void Awake()
@@ -30,11 +40,15 @@ public class PlayerController : MonoBehaviour
         playerStats = GetComponent<PlayerStats>();
         pointAction = InputSystem.actions.FindAction("Point");
         clickAction = InputSystem.actions.FindAction("Click");
+
     }
 
     void Update()
     {
+
         if (!playerStats.IsGameRunning) return;
+
+        if (clickAction == null || pointAction == null) return;
 
         Vector2 screenPosition = pointAction.ReadValue<Vector2>();
 
@@ -49,10 +63,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (currentResource != resource)
                     {
-                        if (currentResource != null)
-                        {
-                            currentResource.StopUsing();
-                        }
+                        currentResource?.StopUsing();
                         currentResource = resource;
                         agent.SetDestination(resource.UsePoint.position);
                     }
@@ -60,13 +71,13 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     agent.SetDestination(hit.point);
-
-                    if (currentResource != null)
-                    {
-                        currentResource.StopUsing();
-                        currentResource = null;
-                    }
+                    currentResource?.StopUsing();
+                    currentResource = null;
                 }
+            }
+            else
+            {
+                Debug.Log("Raycast missed, no collision");
             }
         }
 
@@ -89,5 +100,18 @@ public class PlayerController : MonoBehaviour
         agent.ResetPath();
         agent.isStopped = true;
         currentResource = null;
+    }
+
+    private void GameOver(GameOverReason reason)
+    {
+        ClockEventBus.RaisePauseTimer();
+
+        foreach (GameOverLocation location in HouseLocationManager.Instance.GameOverLocations)
+        {
+            if (location.Reason == reason)
+            {
+                agent.SetDestination(location.UsePoint.position);
+            }
+        }
     }
 }

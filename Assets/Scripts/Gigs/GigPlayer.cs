@@ -106,6 +106,8 @@ public class GigPlayer : MonoBehaviour
         int fans = Mathf.RoundToInt(gigData.BaseGigFans * gigScore);
         yield return CountToNumber(fansText, fans, 1.0f, "+");
 
+        playerStats.AdjustFans(fans);
+
         yield return FadeInstruction(0, 1, 0.2f);
 
         yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());

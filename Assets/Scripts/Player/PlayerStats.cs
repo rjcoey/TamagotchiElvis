@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     [field: SerializeField] public AnimationCurve PerformanceCurve = default;
+
     [field: SerializeField] public float MaxHunger { get; private set; } = 100.0f;
     [field: SerializeField] public float MaxHappiness { get; private set; } = 100.0f;
     [field: SerializeField] public float MaxTalent { get; private set; } = 100.0f;
@@ -46,17 +47,20 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float happinessDecayRate = 1.0f;
     [SerializeField] private float talentDecayRate = 1.0f;
 
+    private int currentFans = 0;
+    private int currentCash = 0;
+
 
     void OnEnable()
     {
         ClockEventBus.OnStartDay += ResumeGame;
-        PlayerEventBus.OnPauseGame += PauseGame;
+        PlayerEventBus.OnPausePlayer += PauseGame;
     }
 
     void OnDisable()
     {
         ClockEventBus.OnStartDay -= ResumeGame;
-        PlayerEventBus.OnPauseGame -= PauseGame;
+        PlayerEventBus.OnPausePlayer -= PauseGame;
     }
 
     void Start()
@@ -66,6 +70,7 @@ public class PlayerStats : MonoBehaviour
         CurrentTalent = startTalent;
 
         PlayerEventBus.RaiseStartGame(this);
+        PlayerEventBus.RaiseUpdateFans(currentFans);
     }
 
     private void Update()
@@ -80,6 +85,32 @@ public class PlayerStats : MonoBehaviour
 
         if (!Resource.IsPractising)
             CurrentTalent = LoseResource(CurrentTalent, talentDecayRate * Time.deltaTime);
+
+        if (CurrentHunger >= MaxHunger)
+            TriggerGameOver(GameOverReason.Overeating);
+
+        if (CurrentHunger <= 0.0f)
+            TriggerGameOver(GameOverReason.Starvation);
+
+        if (CurrentHappiness >= MaxHappiness)
+            TriggerGameOver(GameOverReason.Retiring);
+
+        if (CurrentHappiness <= 0.0f)
+            TriggerGameOver(GameOverReason.Sadness);
+
+        if (CurrentTalent >= MaxTalent)
+            TriggerGameOver(GameOverReason.Burnout);
+
+        if (CurrentTalent <= 0.0f)
+            TriggerGameOver(GameOverReason.Sellout);
+    }
+
+    private void TriggerGameOver(GameOverReason reason)
+    {
+        if (!IsGameRunning) return;
+
+        IsGameRunning = false;
+        GameEndEventBus.RaiseGameOver(reason);
     }
 
     private void ResumeGame()
@@ -115,5 +146,11 @@ public class PlayerStats : MonoBehaviour
     private float LoseResource(float currentAmount, float amountToLose)
     {
         return Mathf.Max(currentAmount - amountToLose, 0.0f);
+    }
+
+    public void AdjustFans(int fansAmount)
+    {
+        currentFans += fansAmount;
+        PlayerEventBus.RaiseUpdateFans(currentFans);
     }
 }

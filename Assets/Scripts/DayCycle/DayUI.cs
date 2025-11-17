@@ -34,11 +34,13 @@ public class DayUI : MonoBehaviour
 
     private IEnumerator RunDayUI(int daysUntilGig)
     {
-        dayText.text = daysUntilGig.ToString() + " days until next gig";
-        yield return canvasFader.Fade(0, 1, fadeInDuration);
+        dayText.text = $"{daysUntilGig} \n days until gig";
+
+        yield return canvasFader.FadeIn(fadeInDuration);
         yield return new WaitForSeconds(holdDuration);
-        yield return canvasFader.Fade(1, 0, fadeOutDuration);
+        yield return canvasFader.FadeOut(fadeOutDuration);
+
         ClockEventBus.RaiseStartDay();
-        PlayerEventBus.RaiseResumeGame();
+        PlayerEventBus.RaiseResumePlayer();
     }
 }

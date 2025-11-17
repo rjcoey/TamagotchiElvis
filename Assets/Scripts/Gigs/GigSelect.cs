@@ -10,34 +10,36 @@ public class GigSelect : MonoBehaviour
     [SerializeField] private float fadeDuration = 0.5f;
 
     private CanvasFader canvasFader;
-    private CanvasGroup canvasGroup;
 
     void OnEnable()
     {
-        GigEventBus.OnGigComplete += InitGigSelection;
+        GigEventBus.OnGigComplete += RunInitGigSelection;
     }
 
     void OnDisable()
     {
-        GigEventBus.OnGigComplete -= InitGigSelection;
+        GigEventBus.OnGigComplete -= RunInitGigSelection;
     }
 
     void Awake()
     {
         canvasFader = GetComponent<CanvasFader>();
-        canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    void Start()
+    IEnumerator Start()
     {
-        InitGigSelection();
+        yield return InitGigSelection();
     }
 
-    private void InitGigSelection()
+    private void RunInitGigSelection()
+    {
+        StartCoroutine(InitGigSelection());
+    }
+
+    private IEnumerator InitGigSelection()
     {
         InitialiseButtons();
-        StartCoroutine(canvasFader.Fade(0, 1, fadeDuration));
-        canvasGroup.interactable = true;
+        yield return canvasFader.FadeIn(fadeDuration);
     }
 
     private void InitialiseButtons()
@@ -55,8 +57,7 @@ public class GigSelect : MonoBehaviour
 
     private IEnumerator SelectGig(int index)
     {
-        canvasGroup.interactable = false;
-        yield return canvasFader.Fade(1.0f, 0.0f, fadeDuration);
+        yield return canvasFader.FadeOut(fadeDuration);
         GigEventBus.RaiseGigSelected(gigOptions[index]);
     }
 }

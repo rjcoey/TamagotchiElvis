@@ -13,5 +13,11 @@ public class ClockEventBus
 
     public static event Action OnEndDay;
     public static void RaiseEndDay() => OnEndDay?.Invoke();
+
+    public static event Action OnPauseTimer;
+    public static void RaisePauseTimer() => OnPauseTimer?.Invoke();
+
+    public static event Action OnResumeTimer;
+    public static void RaiseResumeTimer() => OnResumeTimer?.Invoke();
 }
 

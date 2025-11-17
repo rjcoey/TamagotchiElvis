@@ -1,14 +1,17 @@
 using System;
-using UnityEngine;
 
 public class PlayerEventBus
 {
     public static event Action<PlayerStats> OnStartGame;
     public static void RaiseStartGame(PlayerStats playerStats) => OnStartGame?.Invoke(playerStats);
 
-    public static event Action OnPauseGame;
-    public static void RaisePauseGame() => OnPauseGame?.Invoke();
+    public static event Action OnPausePlayer;
+    public static void RaisePausePlayer() => OnPausePlayer?.Invoke();
 
-    public static event Action OnResumeGame;
-    public static void RaiseResumeGame() => OnResumeGame?.Invoke();
+    public static event Action OnResumePlayer;
+    public static void RaiseResumePlayer() => OnResumePlayer?.Invoke();
+
+    public static event Action<int> OnFansUpdated;
+    public static void RaiseUpdateFans(int fansTotal) => OnFansUpdated?.Invoke(fansTotal);
+
 }
