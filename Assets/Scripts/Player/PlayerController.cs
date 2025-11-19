@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerEventBus.OnPausePlayer += CancelActions;
-        PlayerEventBus.OnResumePlayer += ResumeAction;
+        GameEventBus.OnPauseGame += CancelActions;
+        GameEventBus.OnResumeGame += ResumeAction;
         GameEndEventBus.OnGameOver += GameOver;
 
 
@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour
 
     void OnDisable()
     {
-        PlayerEventBus.OnPausePlayer -= CancelActions;
-        PlayerEventBus.OnResumePlayer -= ResumeAction;
+        GameEventBus.OnPauseGame -= CancelActions;
+        GameEventBus.OnResumeGame -= ResumeAction;
         GameEndEventBus.OnGameOver -= GameOver;
 
         // pointAction?.Disable();
@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
 
     private void GameOver(GameOverReason reason)
     {
-        ClockEventBus.RaisePauseTimer();
+        GameEventBus.RaisePauseGame();
 
         foreach (GameOverLocation location in HouseLocationManager.Instance.GameOverLocations)
         {

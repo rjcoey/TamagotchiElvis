@@ -53,14 +53,15 @@ public class PlayerStats : MonoBehaviour
 
     void OnEnable()
     {
-        ClockEventBus.OnStartDay += ResumeGame;
-        PlayerEventBus.OnPausePlayer += PauseGame;
+        GameEventBus.OnPauseGame += PauseGame;
+        GameEventBus.OnResumeGame += ResumeGame;
     }
 
     void OnDisable()
     {
-        ClockEventBus.OnStartDay -= ResumeGame;
-        PlayerEventBus.OnPausePlayer -= PauseGame;
+        GameEventBus.OnPauseGame -= PauseGame;
+        GameEventBus.OnResumeGame -= ResumeGame;
+
     }
 
     void Start()
