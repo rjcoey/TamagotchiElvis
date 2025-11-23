@@ -2,6 +2,9 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Handles the gig button's display and selection functionality.
+/// </summary>
 public class GigButton : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI gigLocationText;

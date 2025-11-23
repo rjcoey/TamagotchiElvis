@@ -1,5 +1,9 @@
 using System;
 
+/// <summary>
+/// A static event bus for handling the entire lifecycle of a gig,
+/// from selection to completion.
+/// </summary>
 public class GigEventBus
 {
     public static Action OnStartGigSelection;

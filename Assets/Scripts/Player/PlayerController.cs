@@ -14,10 +14,9 @@ public class PlayerController : MonoBehaviour
 
     void OnEnable()
     {
-        GameEventBus.OnPauseGame += CancelActions;
-        GameEventBus.OnResumeGame += ResumeAction;
+        GameEventBus.OnPauseGame += PausePlayerControl;
+        GameEventBus.OnResumeGame += ResumePlayerControl;
         GameEndEventBus.OnGameOver += GameOver;
-
 
         pointAction?.Enable();
         clickAction?.Enable();
@@ -25,8 +24,8 @@ public class PlayerController : MonoBehaviour
 
     void OnDisable()
     {
-        GameEventBus.OnPauseGame -= CancelActions;
-        GameEventBus.OnResumeGame -= ResumeAction;
+        GameEventBus.OnPauseGame -= PausePlayerControl;
+        GameEventBus.OnResumeGame -= ResumePlayerControl;
         GameEndEventBus.OnGameOver -= GameOver;
 
         // pointAction?.Disable();
@@ -90,12 +89,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ResumeAction()
+    private void ResumePlayerControl()
     {
         agent.isStopped = false;
     }
 
-    private void CancelActions()
+    private void PausePlayerControl()
     {
         agent.ResetPath();
         agent.isStopped = true;

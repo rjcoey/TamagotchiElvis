@@ -91,6 +91,7 @@ public class DayTracker : MonoBehaviour
     void StartDay()
     {
         dayComplete = false;
+        isTimerPaused = false;
         realElapsedTime = 0.0f;
     }
 

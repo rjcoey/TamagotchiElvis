@@ -12,12 +12,14 @@ public class BottomPanelUI : MonoBehaviour
     {
         GameEventBus.OnPauseGame += HideBottomPanel;
         GameEventBus.OnResumeGame += RevealBottomPanel;
+        ClockEventBus.OnStartDay += RevealBottomPanel;
     }
 
     void OnDisable()
     {
         GameEventBus.OnPauseGame -= HideBottomPanel;
         GameEventBus.OnResumeGame -= RevealBottomPanel;
+        ClockEventBus.OnStartDay -= RevealBottomPanel;
     }
 
     void Awake()

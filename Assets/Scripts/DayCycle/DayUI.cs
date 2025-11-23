@@ -40,6 +40,13 @@ public class DayUI : MonoBehaviour
         yield return new WaitForSeconds(holdDuration);
         yield return canvasFader.FadeOut(fadeOutDuration);
 
-        GameEventBus.RaiseResumeGame();
+        if (TutorialEventBus.HasPlayedTutorial)
+        {
+            ClockEventBus.RaiseStartDay();
+        }
+        else
+        {
+            // Play tutorial
+        }
     }
 }
