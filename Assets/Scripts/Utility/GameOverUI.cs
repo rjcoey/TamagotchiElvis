@@ -33,7 +33,7 @@ public class GameOverUI : MonoBehaviour
     private IEnumerator GameOverRoutine(string message)
     {
         messageText.text = message;
-        yield return fader.FadeIn(fadeDuration);
+        yield return fader.Co_FadeIn(fadeDuration);
     }
 
     public void RestartLevel()

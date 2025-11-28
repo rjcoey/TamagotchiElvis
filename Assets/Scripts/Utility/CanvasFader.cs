@@ -17,21 +17,21 @@ public class CanvasFader : MonoBehaviour
         canvasGroup.alpha = value;
     }
 
-    public IEnumerator FadeIn(float fadeDuration = 2.0f)
+    public IEnumerator Co_FadeIn(float fadeDuration = 2.0f)
     {
-        yield return Fade(0.0f, 1.0f, fadeDuration);
+        yield return Co_RunFade(0.0f, 1.0f, fadeDuration);
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
     }
 
-    public IEnumerator FadeOut(float fadeDuration = 2.0f)
+    public IEnumerator Co_FadeOut(float fadeDuration = 2.0f)
     {
-        yield return Fade(1, 0, fadeDuration);
+        yield return Co_RunFade(1, 0, fadeDuration);
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
     }
 
-    public IEnumerator Fade(float startAlpha, float endAlpha, float duration)
+    private IEnumerator Co_RunFade(float startAlpha, float endAlpha, float duration)
     {
         float timeElapsed = 0f;
 

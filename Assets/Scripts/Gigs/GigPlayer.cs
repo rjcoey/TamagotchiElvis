@@ -98,8 +98,8 @@ public class GigPlayer : MonoBehaviour
     private IEnumerator RunGig(GigDataSO gigData)
     {
         // --- Intro ---
-        yield return canvasFader.Fade(0, 1, 0.5f);
-        yield return TypewriterEffect(titleText, gigData.GigLocation);
+        yield return canvasFader.Co_FadeIn();
+        yield return Typewriter.TypewriterEffect(titleText, gigData.GigLocation, typewriterSpeed);
 
         // --- Review ---
         yield return LerpElementSize(reviewLabel, Vector3.zero, Vector3.one, 0.5f);
@@ -107,7 +107,7 @@ public class GigPlayer : MonoBehaviour
         float gigScore = CalculateGigScore(gigData);
         int numberOfStars = Mathf.RoundToInt(gigScore * 5.0f);
         string starRating = string.Concat(Enumerable.Repeat("*", numberOfStars));
-        yield return TypewriterEffect(starsText, starRating);
+        yield return Typewriter.TypewriterEffect(starsText, starRating, typewriterSpeed);
 
         // Determine which review text to show based on the score.
         string review;
@@ -123,7 +123,7 @@ public class GigPlayer : MonoBehaviour
         {
             review = gigData.NeutralReview;
         }
-        yield return TypewriterEffect(reviewText, review);
+        yield return Typewriter.TypewriterEffect(reviewText, review, typewriterSpeed);
 
         // --- Rewards ---
         int cash = Mathf.RoundToInt(gigData.BaseGigCash * gigScore);
@@ -139,26 +139,11 @@ public class GigPlayer : MonoBehaviour
         yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
 
         // --- Outro ---
-        yield return canvasFader.Fade(1.0f, 0.0f, 0.5f);
+        yield return canvasFader.Co_FadeOut();
         GigEventBus.RaiseGigComplete();
     }
 
     #region --- Animation Coroutines ---
-
-    /// <summary>
-    /// Animates text by revealing one character at a time.
-    /// </summary>
-    private IEnumerator TypewriterEffect(TextMeshProUGUI textElement, string textToType)
-    {
-        textElement.text = string.Empty;
-        foreach (char c in textToType)
-        {
-            textElement.text += c;
-            yield return new WaitForSeconds(typewriterSpeed);
-        }
-        // Ensure the full text is displayed at the end.
-        textElement.text = textToType;
-    }
 
     /// <summary>
     /// Animates the scale of a Transform using a curve for a bouncy effect.

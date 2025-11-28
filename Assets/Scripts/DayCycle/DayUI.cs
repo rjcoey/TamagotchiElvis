@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DayUI : MonoBehaviour
 {
+    [SerializeField] private GameFlagsSO gameFlags;
+
     [SerializeField] private TextMeshProUGUI dayText;
 
     [SerializeField] private float fadeInDuration = 0.5f;
@@ -19,12 +21,12 @@ public class DayUI : MonoBehaviour
 
     void OnEnable()
     {
-        ClockEventBus.OnNewDay += StartDayUI;
+        ClockEventBus.OnDayAdvanced += StartDayUI;
     }
 
     void OnDisable()
     {
-        ClockEventBus.OnNewDay -= StartDayUI;
+        ClockEventBus.OnDayAdvanced -= StartDayUI;
     }
 
     private void StartDayUI(int dayNumber)
@@ -36,17 +38,10 @@ public class DayUI : MonoBehaviour
     {
         dayText.text = daysUntilGig.ToString();
 
-        yield return canvasFader.FadeIn(fadeInDuration);
+        yield return canvasFader.Co_FadeIn(fadeInDuration);
         yield return new WaitForSeconds(holdDuration);
-        yield return canvasFader.FadeOut(fadeOutDuration);
+        yield return canvasFader.Co_FadeOut(fadeOutDuration);
 
-        if (TutorialEventBus.HasPlayedTutorial)
-        {
-            ClockEventBus.RaiseStartDay();
-        }
-        else
-        {
-            // Play tutorial
-        }
+        ClockEventBus.RaiseStartDay();
     }
 }

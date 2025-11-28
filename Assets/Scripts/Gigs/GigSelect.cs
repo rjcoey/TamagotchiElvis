@@ -39,7 +39,7 @@ public class GigSelect : MonoBehaviour
     private IEnumerator InitGigSelection()
     {
         InitialiseButtons();
-        yield return canvasFader.FadeIn(fadeDuration);
+        yield return canvasFader.Co_FadeIn(fadeDuration);
     }
 
     private void InitialiseButtons()
@@ -57,7 +57,7 @@ public class GigSelect : MonoBehaviour
 
     private IEnumerator SelectGig(int index)
     {
-        yield return canvasFader.FadeOut(fadeDuration);
+        yield return canvasFader.Co_FadeOut(fadeDuration);
         GigEventBus.RaiseGigSelected(gigOptions[index]);
     }
 }

@@ -14,9 +14,9 @@ public class PlayerController : MonoBehaviour
 
     void OnEnable()
     {
-        GameEventBus.OnPauseGame += PausePlayerControl;
-        GameEventBus.OnResumeGame += ResumePlayerControl;
         GameEndEventBus.OnGameOver += GameOver;
+        ClockEventBus.OnStartDay += EnablePlayerControl;
+        ClockEventBus.OnEndDay += DisablePlayerControl;
 
         pointAction?.Enable();
         clickAction?.Enable();
@@ -24,9 +24,9 @@ public class PlayerController : MonoBehaviour
 
     void OnDisable()
     {
-        GameEventBus.OnPauseGame -= PausePlayerControl;
-        GameEventBus.OnResumeGame -= ResumePlayerControl;
         GameEndEventBus.OnGameOver -= GameOver;
+        ClockEventBus.OnStartDay -= EnablePlayerControl;
+        ClockEventBus.OnEndDay -= DisablePlayerControl;
 
         // pointAction?.Disable();
         // clickAction?.Disable();
@@ -89,12 +89,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ResumePlayerControl()
+    private void EnablePlayerControl()
     {
         agent.isStopped = false;
     }
 
-    private void PausePlayerControl()
+    private void DisablePlayerControl()
     {
         agent.ResetPath();
         agent.isStopped = true;
@@ -103,8 +103,6 @@ public class PlayerController : MonoBehaviour
 
     private void GameOver(GameOverReason reason)
     {
-        GameEventBus.RaisePauseGame();
-
         foreach (GameOverLocation location in HouseLocationManager.Instance.GameOverLocations)
         {
             if (location.Reason == reason)

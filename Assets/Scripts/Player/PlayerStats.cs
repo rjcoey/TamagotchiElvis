@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -20,16 +19,11 @@ public class PlayerStats : MonoBehaviour
     public float CurrentHappiness { get; private set; }
     public float CurrentTalent { get; private set; }
 
-    #region --- Normalized Score Properties ---
-    /// <summary>Gets the current hunger as a normalized value between 0.0 and 1.0.</summary>
-    public float GetHungerScore => CurrentHunger / MaxHunger;
-    /// <summary>Gets the current happiness as a normalized value between 0.0 and 1.0.</summary>
-    public float GetHappinessScore => CurrentHappiness / MaxHappiness;
-    /// <summary>Gets the current talent as a normalized value between 0.0 and 1.0.</summary>
-    public float GetTalentScore => CurrentTalent / MaxTalent;
-    #endregion
 
-    /// <summary>A flag indicating if the main game loop (stat decay) is currently active.</summary>
+    public float GetHungerScore => CurrentHunger / MaxHunger;
+    public float GetHappinessScore => CurrentHappiness / MaxHappiness;
+    public float GetTalentScore => CurrentTalent / MaxTalent;
+
     public bool IsGameRunning { get; private set; } = false;
 
     [Header("Initial Values")]
@@ -44,21 +38,19 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float talentDecayRate = 1.0f;
 
     private int currentFans = 0;
-    private int currentCash = 0;
+    // private int currentCash = 0;
 
 
     void OnEnable()
     {
-        GameEventBus.OnPauseGame += PauseGame;
-        GameEventBus.OnResumeGame += ResumeGame;
         ClockEventBus.OnStartDay += ResumeGame;
+        ClockEventBus.OnEndDay += PauseGame;
     }
 
     void OnDisable()
     {
-        GameEventBus.OnPauseGame -= PauseGame;
-        GameEventBus.OnResumeGame -= ResumeGame;
         ClockEventBus.OnStartDay -= ResumeGame;
+        ClockEventBus.OnEndDay -= PauseGame;
     }
 
     void Start()

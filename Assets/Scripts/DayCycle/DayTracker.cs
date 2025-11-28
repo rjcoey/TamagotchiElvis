@@ -24,16 +24,14 @@ public class DayTracker : MonoBehaviour
     {
         GigEventBus.OnGigSelected += SetCurrentGig;
         ClockEventBus.OnStartDay += StartDay;
-        GameEventBus.OnPauseGame += PauseTimer;
-        GameEventBus.OnResumeGame += ResumeTimer;
+        GameEndEventBus.OnGameOver += PauseDay;
     }
 
     void OnDisable()
     {
         GigEventBus.OnGigSelected -= SetCurrentGig;
         ClockEventBus.OnStartDay -= StartDay;
-        GameEventBus.OnPauseGame -= PauseTimer;
-        GameEventBus.OnResumeGame -= ResumeTimer;
+        GameEndEventBus.OnGameOver -= PauseDay;
     }
 
     void Update()
@@ -61,12 +59,11 @@ public class DayTracker : MonoBehaviour
 
         if (realElapsedTime > realTimeDuration)
         {
+            ClockEventBus.RaiseEndDay();
             dayComplete = true;
             inGameTime = "00:00";
             ClockEventBus.RaiseTimeChanged(inGameTime);
             daysUntilGig--;
-
-            GameEventBus.RaisePauseGame();
 
             if (daysUntilGig == 0)
             {
@@ -75,7 +72,7 @@ public class DayTracker : MonoBehaviour
             }
             else
             {
-                ClockEventBus.RaiseNewDay(daysUntilGig);
+                ClockEventBus.RaiseDayAdvanced(daysUntilGig);
             }
         }
     }
@@ -85,7 +82,7 @@ public class DayTracker : MonoBehaviour
         currentGigData = gigData;
         daysUntilGig = currentGigData.DaysUntilGig;
 
-        ClockEventBus.RaiseNewDay(daysUntilGig);
+        ClockEventBus.RaiseDayAdvanced(daysUntilGig);
     }
 
     void StartDay()
@@ -95,13 +92,8 @@ public class DayTracker : MonoBehaviour
         realElapsedTime = 0.0f;
     }
 
-    void PauseTimer()
+    void PauseDay(GameOverReason reason)
     {
         isTimerPaused = true;
-    }
-
-    void ResumeTimer()
-    {
-        isTimerPaused = false;
     }
 }
