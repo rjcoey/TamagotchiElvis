@@ -1,12 +1,12 @@
-using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(UIMover))]
 public class BottomPanelUI : MonoBehaviour
 {
-    [SerializeField] private AnimationCurve revealCurve;
     [SerializeField] private float revealTime = 0.5f;
 
     private RectTransform rectTransform;
+    private UIMover hudPanel;
 
     void OnEnable()
     {
@@ -23,33 +23,19 @@ public class BottomPanelUI : MonoBehaviour
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        hudPanel = GetComponent<UIMover>();
     }
 
     private void RevealBottomPanel()
     {
         Vector2 startPosition = new(rectTransform.anchoredPosition.x, -rectTransform.sizeDelta.y);
         Vector2 endPosition = new(rectTransform.anchoredPosition.x, 0.0f);
-        StartCoroutine(LerpPanelPosition(startPosition, endPosition, revealTime));
+        StartCoroutine(hudPanel.LerpPanelPosition(startPosition, endPosition, revealTime));
     }
 
     private void HideBottomPanel()
     {
         Vector2 endPosition = new(rectTransform.anchoredPosition.x, -rectTransform.sizeDelta.y);
-        StartCoroutine(LerpPanelPosition(rectTransform.anchoredPosition, endPosition, revealTime));
-    }
-
-    private IEnumerator LerpPanelPosition(Vector2 startPosition, Vector2 endPosition, float duration)
-    {
-        float timeElapsed = 0f;
-
-        while (timeElapsed < duration)
-        {
-            timeElapsed += Time.unscaledDeltaTime;
-            float t = timeElapsed / duration;
-            rectTransform.anchoredPosition = Vector2.LerpUnclamped(startPosition, endPosition, revealCurve.Evaluate(t));
-            yield return null;
-        }
-
-        rectTransform.anchoredPosition = endPosition;
+        StartCoroutine(hudPanel.LerpPanelPosition(rectTransform.anchoredPosition, endPosition, revealTime));
     }
 }

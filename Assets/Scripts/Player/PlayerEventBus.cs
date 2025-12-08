@@ -10,8 +10,8 @@ public class PlayerEventBus
     /// Provides a central reference to the PlayerStats component for any system that needs it.
     /// </summary>
     /// <param name="playerStats">A reference to the singleton PlayerStats instance.</param>
-    public static event Action<PlayerStats> OnStartGame;
-    public static void RaiseStartGame(PlayerStats playerStats) => OnStartGame?.Invoke(playerStats);
+    public static event Action<PlayerStats> OnSpawnPlayer;
+    public static void RaiseSpawnPlayer(PlayerStats playerStats) => OnSpawnPlayer?.Invoke(playerStats);
 
     /// <summary>
     /// Event fired whenever the player's total number of fans changes.

@@ -33,14 +33,14 @@ public class GigPlayer : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerEventBus.OnStartGame += SetPlayerStats;
+        PlayerEventBus.OnSpawnPlayer += SetPlayerStats;
         GigEventBus.OnPlayGig += StartRunGig;
     }
 
     void OnDisable()
     {
         // Unsubscribe from events to prevent memory leaks and errors.
-        PlayerEventBus.OnStartGame -= SetPlayerStats; // Corrected from += to -=
+        PlayerEventBus.OnSpawnPlayer -= SetPlayerStats; // Corrected from += to -=
         GigEventBus.OnPlayGig -= StartRunGig;
     }
 

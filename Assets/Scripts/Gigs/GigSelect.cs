@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GigSelect : MonoBehaviour
 {
+    [SerializeField] private GameFlagsSO gameFlags;
+
     [SerializeField] private List<GigDataSO> gigOptions = new();
     [SerializeField] private List<GigButton> gigButtons = new();
 
@@ -13,11 +15,13 @@ public class GigSelect : MonoBehaviour
 
     void OnEnable()
     {
+        GameEventBus.OnStartGame += RunInitGigSelection;
         GigEventBus.OnGigComplete += RunInitGigSelection;
     }
 
     void OnDisable()
     {
+        GameEventBus.OnStartGame -= RunInitGigSelection;
         GigEventBus.OnGigComplete -= RunInitGigSelection;
     }
 
@@ -26,9 +30,16 @@ public class GigSelect : MonoBehaviour
         canvasFader = GetComponent<CanvasFader>();
     }
 
-    IEnumerator Start()
+    void Start()
     {
-        yield return InitGigSelection();
+        if (gameFlags.HasPlayedTutorial)
+        {
+            RunInitGigSelection();
+        }
+        else
+        {
+            TutorialEventBus.RaiseStartTutorial();
+        }
     }
 
     private void RunInitGigSelection()

@@ -9,12 +9,12 @@ public class TalentUI : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerEventBus.OnStartGame += SetPlayerStats;
+        PlayerEventBus.OnSpawnPlayer += SetPlayerStats;
     }
 
     void OnDisable()
     {
-        PlayerEventBus.OnStartGame -= SetPlayerStats;
+        PlayerEventBus.OnSpawnPlayer -= SetPlayerStats;
     }
 
     void Update()

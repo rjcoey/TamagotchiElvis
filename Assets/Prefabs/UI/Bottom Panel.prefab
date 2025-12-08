@@ -1175,6 +1175,7 @@ GameObject:
   - component: {fileID: 3519599231707737436}
   - component: {fileID: 7232918975572605174}
   - component: {fileID: 7278032886696608296}
+  - component: {fileID: 6300878305262941006}
   m_Layer: 5
   m_Name: Bottom Panel
   m_TagString: Untagged
@@ -1254,6 +1255,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12cb263faffcad48ba2bbea61e36191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  revealTime: 0.5
+--- !u!114 &6300878305262941006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4741892034172304150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7bab141dcdeaa547a965fce79f3996f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   revealCurve:
     serializedVersion: 2
     m_Curve:
@@ -1287,7 +1301,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  revealTime: 0.5
 --- !u!1 &4840854778149180694
 GameObject:
   m_ObjectHideFlags: 0

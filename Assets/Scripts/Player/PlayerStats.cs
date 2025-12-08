@@ -59,7 +59,7 @@ public class PlayerStats : MonoBehaviour
         CurrentHappiness = startHappiness;
         CurrentTalent = startTalent;
 
-        PlayerEventBus.RaiseStartGame(this);
+        PlayerEventBus.RaiseSpawnPlayer(this);
         PlayerEventBus.RaiseUpdateFans(currentFans);
     }
 

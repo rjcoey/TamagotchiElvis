@@ -9,12 +9,12 @@ public class HungerUI : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerEventBus.OnStartGame += SetPlayerStats;
+        PlayerEventBus.OnSpawnPlayer += SetPlayerStats;
     }
 
     private void OnDisable()
     {
-        PlayerEventBus.OnStartGame -= SetPlayerStats;
+        PlayerEventBus.OnSpawnPlayer -= SetPlayerStats;
     }
 
     void Update()

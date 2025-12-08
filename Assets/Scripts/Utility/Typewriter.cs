@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class Typewriter
 {
-    public static IEnumerator TypewriterEffect(TextMeshProUGUI textElement, string textToType, float typewriterSpeed)
+    public static IEnumerator TypewriterEffect(TextMeshProUGUI textElement, string textToType, float typewriterSpeed = 0.02f)
     {
         textElement.text = string.Empty;
         foreach (char c in textToType)
