@@ -773,7 +773,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textBox: {fileID: 2124911380}
   revealTime: 0.5
-  typewriteSpeed: 0.5
 --- !u!114 &181830473
 MonoBehaviour:
   m_ObjectHideFlags: 0

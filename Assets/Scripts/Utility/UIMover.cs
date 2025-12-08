@@ -12,9 +12,11 @@ public class UIMover : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public IEnumerator LerpPanelPosition(Vector2 startPosition, Vector2 endPosition, float duration)
+    public IEnumerator LerpPanelPosition(Vector2 startPosition, Vector2 endPosition, float duration = 0.5f)
     {
         float timeElapsed = 0f;
+
+        rectTransform.anchoredPosition = startPosition;
 
         while (timeElapsed < duration)
         {

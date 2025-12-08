@@ -41,6 +41,16 @@ public class TutorialUI : MonoBehaviour
         yield return textBox.TypeText("Listen up maggot, welcome to Tamagotchi Elvis! The all in one musciain simulator game!");
         yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
         yield return textBox.TypeText("Ready or not we're going to make you a star, but I gotta explain a few things first.");
+        yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
+        yield return hudPanel.LerpPanelPosition(hudPanel.GetComponent<RectTransform>().anchoredPosition, new Vector2(0.0f, 0.0f));
+        yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
+        yield return textBox.TypeText("These here are your resources, you gotta fill them up by clicking on items in your flat.");
+        yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
+        yield return textBox.TypeText("The TV fills your happiness, the fridge fills your hunger and your guitar fills your talent");
+        yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
+        yield return textBox.TypeText("You gotta be careful though! If you do anything too much you might quit out of the rockstar life.");
+        yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
+        yield return textBox.TypeText("This is where you can see your current fans ");
 
     }
 }
