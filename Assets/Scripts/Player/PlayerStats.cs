@@ -96,7 +96,7 @@ public class PlayerStats : MonoBehaviour
         if (!IsGameRunning) return;
 
         IsGameRunning = false;
-        GameEndEventBus.RaiseGameOver(reason);
+        GameEventBus.RaiseGameOver(reason);
     }
 
     private void ResumeGame()

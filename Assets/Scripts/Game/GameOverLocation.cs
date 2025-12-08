@@ -29,19 +29,19 @@ public class GameOverLocation : MonoBehaviour
 
     void OnEnable()
     {
-        GameEndEventBus.OnGameOver += SetActive;
+        GameEventBus.OnGameOver += SetActive;
     }
 
     void OnDisable()
     {
-        GameEndEventBus.OnGameOver -= SetActive;
+        GameEventBus.OnGameOver -= SetActive;
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            GameEndEventBus.RaiseTriggerGameOverUI(gameOverMessage);
+            GameEventBus.RaiseTriggerGameOverUI(gameOverMessage);
         }
     }
 

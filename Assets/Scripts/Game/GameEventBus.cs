@@ -3,7 +3,7 @@ using System;
 /// <summary>
 /// A static event bus for handling game over and game end scenarios.
 /// </summary>
-public class GameEndEventBus
+public class GameEventBus
 {
     /// <summary>
     /// Event fired when the game's state officially transitions to "Game Over".

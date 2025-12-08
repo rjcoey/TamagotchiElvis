@@ -24,14 +24,14 @@ public class DayTracker : MonoBehaviour
     {
         GigEventBus.OnGigSelected += SetCurrentGig;
         ClockEventBus.OnStartDay += StartDay;
-        GameEndEventBus.OnGameOver += PauseDay;
+        GameEventBus.OnGameOver += PauseDay;
     }
 
     void OnDisable()
     {
         GigEventBus.OnGigSelected -= SetCurrentGig;
         ClockEventBus.OnStartDay -= StartDay;
-        GameEndEventBus.OnGameOver -= PauseDay;
+        GameEventBus.OnGameOver -= PauseDay;
     }
 
     void Update()

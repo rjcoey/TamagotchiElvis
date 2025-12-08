@@ -12,12 +12,12 @@ public class GameOverUI : MonoBehaviour
 
     void OnEnable()
     {
-        GameEndEventBus.OnTriggerGameOverUI += RunGameOver;
+        GameEventBus.OnTriggerGameOverUI += RunGameOver;
     }
 
     void OnDisable()
     {
-        GameEndEventBus.OnTriggerGameOverUI -= RunGameOver;
+        GameEventBus.OnTriggerGameOverUI -= RunGameOver;
     }
 
     void Awake()
