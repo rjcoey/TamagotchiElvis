@@ -48,9 +48,15 @@ public class TutorialUI : MonoBehaviour
         yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
         yield return textBox.TypeText("The TV fills your happiness, the fridge fills your hunger and your guitar fills your talent");
         yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
-        yield return textBox.TypeText("You gotta be careful though! If you do anything too much you might quit out of the rockstar life.");
+        yield return textBox.TypeText("You gotta be careful though! Too much of the good stuff might make you realise there's more to life than being a rock 'n' roll star!");
         yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
-        yield return textBox.TypeText("This is where you can see your current fans ");
-
+        yield return textBox.TypeText("This is where you can see your current fans...");
+        yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
+        yield return textBox.TypeText("And here is where you can see how many days you have until your next gig!");
+        yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
+        yield return textBox.TypeText("Next up, I'm going to send you some gigs to pick between. Together, you and me are making it places!");
+        yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
+        yield return canvasFader.Co_FadeOut(fadeInTime);
+        GameEventBus.RaiseStartGame();
     }
 }
