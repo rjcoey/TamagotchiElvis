@@ -15,14 +15,12 @@ public class GigSelect : MonoBehaviour
 
     void OnEnable()
     {
-        GameEventBus.OnStartGame += RunInitGigSelection;
-        GigEventBus.OnGigComplete += RunInitGigSelection;
+        GigEventBus.OnStartGigSelection += RunGigSelection;
     }
 
     void OnDisable()
     {
-        GameEventBus.OnStartGame -= RunInitGigSelection;
-        GigEventBus.OnGigComplete -= RunInitGigSelection;
+        GigEventBus.OnStartGigSelection -= RunGigSelection;
     }
 
     void Awake()
@@ -30,24 +28,12 @@ public class GigSelect : MonoBehaviour
         canvasFader = GetComponent<CanvasFader>();
     }
 
-    void Start()
+    private void RunGigSelection()
     {
-        if (gameFlags.HasPlayedTutorial)
-        {
-            RunInitGigSelection();
-        }
-        else
-        {
-            TutorialEventBus.RaiseStartTutorial();
-        }
+        StartCoroutine(Co_GigSelection());
     }
 
-    private void RunInitGigSelection()
-    {
-        StartCoroutine(InitGigSelection());
-    }
-
-    private IEnumerator InitGigSelection()
+    private IEnumerator Co_GigSelection()
     {
         InitialiseButtons();
         yield return canvasFader.Co_FadeIn(fadeDuration);
@@ -61,12 +47,12 @@ public class GigSelect : MonoBehaviour
         }
     }
 
-    public void StartSelectGig(int index)
+    public void RunSelectGig(int index)
     {
-        StartCoroutine(SelectGig(index));
+        StartCoroutine(Co_SelectGig(index));
     }
 
-    private IEnumerator SelectGig(int index)
+    private IEnumerator Co_SelectGig(int index)
     {
         yield return canvasFader.Co_FadeOut(fadeDuration);
         GigEventBus.RaiseGigSelected(gigOptions[index]);

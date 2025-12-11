@@ -57,6 +57,6 @@ public class TutorialUI : MonoBehaviour
         yield return textBox.TypeText("Next up, I'm going to send you some gigs to pick between. Together, you and me are making it places!");
         yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
         yield return canvasFader.Co_FadeOut(fadeInTime);
-        GameEventBus.RaiseStartGame();
+        TutorialEventBus.RaiseCompleteTutorial();
     }
 }

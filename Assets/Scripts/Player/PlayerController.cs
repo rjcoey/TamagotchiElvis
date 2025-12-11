@@ -14,9 +14,11 @@ public class PlayerController : MonoBehaviour
 
     void OnEnable()
     {
+        PlayerEventBus.OnEnablePlayer += EnablePlayerControl;
+        PlayerEventBus.OnDisablePlayer += DisablePlayerControl;
+
         GameEventBus.OnGameOver += GameOver;
-        ClockEventBus.OnStartDay += EnablePlayerControl;
-        ClockEventBus.OnEndDay += DisablePlayerControl;
+
 
         pointAction?.Enable();
         clickAction?.Enable();
@@ -24,9 +26,10 @@ public class PlayerController : MonoBehaviour
 
     void OnDisable()
     {
+        PlayerEventBus.OnEnablePlayer -= EnablePlayerControl;
+        ClockEventBus.OnDayComplete -= DisablePlayerControl;
+
         GameEventBus.OnGameOver -= GameOver;
-        ClockEventBus.OnStartDay -= EnablePlayerControl;
-        ClockEventBus.OnEndDay -= DisablePlayerControl;
 
         // pointAction?.Disable();
         // clickAction?.Disable();

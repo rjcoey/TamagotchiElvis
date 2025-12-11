@@ -9,13 +9,13 @@ public class ClockUI : MonoBehaviour
     void OnEnable()
     {
         ClockEventBus.OnTimeChanged += UpdateClockText;
-        ClockEventBus.OnDayAdvanced += UpdateDayText;
+        ClockEventBus.OnStartDay += UpdateDayText;
     }
 
     void OnDisable()
     {
         ClockEventBus.OnTimeChanged -= UpdateClockText;
-        ClockEventBus.OnDayAdvanced -= UpdateDayText;
+        ClockEventBus.OnStartDay -= UpdateDayText;
     }
 
     private void UpdateClockText(string newTime)

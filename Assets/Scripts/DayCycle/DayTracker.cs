@@ -6,9 +6,6 @@ public class DayTracker : MonoBehaviour
     [SerializeField] private int dayDuration = 16;
     [SerializeField] private int dayStartTime = 8;
 
-    private GigDataSO currentGigData;
-
-    private int daysUntilGig = 0;
     private float realElapsedTime = 0.0f;
 
     private int gameElapsedMinutes = 0;
@@ -16,27 +13,25 @@ public class DayTracker : MonoBehaviour
     private int currentGameHour = 0;
     private int lastUpdatedMinute = -1;
 
-    private bool dayComplete = true;
-    private bool isTimerPaused = false;
+    private bool isTimerPaused = true;
     private string inGameTime;
 
     void OnEnable()
     {
-        GigEventBus.OnGigSelected += SetCurrentGig;
-        ClockEventBus.OnStartDay += StartDay;
-        GameEventBus.OnGameOver += PauseDay;
+        ClockEventBus.OnPauseTimer += PauseTimer;
+        ClockEventBus.OnResumeTimer += ResumeTimer;
+        ClockEventBus.OnStartDay += ResetTimer;
     }
 
     void OnDisable()
     {
-        GigEventBus.OnGigSelected -= SetCurrentGig;
-        ClockEventBus.OnStartDay -= StartDay;
-        GameEventBus.OnGameOver -= PauseDay;
+        ClockEventBus.OnPauseTimer -= PauseTimer;
+        ClockEventBus.OnResumeTimer -= ResumeTimer;
+        ClockEventBus.OnStartDay -= ResetTimer;
     }
 
     void Update()
     {
-        if (dayComplete) return;
         if (isTimerPaused) return;
 
         realElapsedTime += Time.deltaTime;
@@ -59,41 +54,25 @@ public class DayTracker : MonoBehaviour
 
         if (realElapsedTime > realTimeDuration)
         {
-            ClockEventBus.RaiseEndDay();
-            dayComplete = true;
             inGameTime = "00:00";
-            ClockEventBus.RaiseTimeChanged(inGameTime);
-            daysUntilGig--;
 
-            if (daysUntilGig == 0)
-            {
-                GigEventBus.RaisePlayGig(currentGigData);
-                currentGigData = null;
-            }
-            else
-            {
-                ClockEventBus.RaiseDayAdvanced(daysUntilGig);
-            }
+            ClockEventBus.RaiseTimeChanged(inGameTime);
+            ClockEventBus.RaiseDayComplete();
         }
     }
 
-    void SetCurrentGig(GigDataSO gigData)
+    void ResumeTimer()
     {
-        currentGigData = gigData;
-        daysUntilGig = currentGigData.DaysUntilGig;
-
-        ClockEventBus.RaiseDayAdvanced(daysUntilGig);
-    }
-
-    void StartDay()
-    {
-        dayComplete = false;
         isTimerPaused = false;
-        realElapsedTime = 0.0f;
     }
 
-    void PauseDay(GameOverReason reason)
+    void PauseTimer()
     {
         isTimerPaused = true;
+    }
+
+    void ResetTimer(int daysUntilGig)
+    {
+        realElapsedTime = 0.0f;
     }
 }

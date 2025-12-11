@@ -25,6 +25,6 @@ public class GigButton : MonoBehaviour
 
     public void SelectGig(int index)
     {
-        gigSelector.StartSelectGig(index);
+        gigSelector.RunSelectGig(index);
     }
 }

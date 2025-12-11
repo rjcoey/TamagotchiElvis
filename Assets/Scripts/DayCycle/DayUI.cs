@@ -21,17 +21,17 @@ public class DayUI : MonoBehaviour
 
     void OnEnable()
     {
-        ClockEventBus.OnDayAdvanced += StartDayUI;
+        ClockEventBus.OnStartDay += StartDayUI;
     }
 
     void OnDisable()
     {
-        ClockEventBus.OnDayAdvanced -= StartDayUI;
+        ClockEventBus.OnStartDay -= StartDayUI;
     }
 
-    private void StartDayUI(int dayNumber)
+    private void StartDayUI(int daysUntilGig)
     {
-        StartCoroutine(RunDayUI(dayNumber));
+        StartCoroutine(RunDayUI(daysUntilGig));
     }
 
     private IEnumerator RunDayUI(int daysUntilGig)
@@ -42,6 +42,7 @@ public class DayUI : MonoBehaviour
         yield return new WaitForSeconds(holdDuration);
         yield return canvasFader.Co_FadeOut(fadeOutDuration);
 
-        ClockEventBus.RaiseStartDay();
+        ClockEventBus.RaiseResumeTimer();
+        PlayerEventBus.RaiseEnablePlayer();
     }
 }
