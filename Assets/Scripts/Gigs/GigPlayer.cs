@@ -3,6 +3,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// Manages the entire UI sequence for playing a gig, from the intro animation to displaying the results.
@@ -92,24 +93,18 @@ public class GigPlayer : MonoBehaviour
         return finalScore;
     }
 
-    /// <summary>
-    /// The main coroutine that controls the entire gig animation sequence step-by-step.
-    /// </summary>
     private IEnumerator RunGig(GigDataSO gigData)
     {
-        // --- Intro ---
         yield return canvasFader.Co_FadeIn();
         yield return Typewriter.TypewriterEffect(titleText, gigData.GigLocation, typewriterSpeed);
 
-        // --- Review ---
-        yield return LerpElementSize(reviewLabel, Vector3.zero, Vector3.one, 0.5f);
+        yield return UITweener.LerpElementSize(reviewLabel, Vector3.zero, Vector3.one, 0.5f, scaleCurve);
 
         float gigScore = CalculateGigScore(gigData);
         int numberOfStars = Mathf.RoundToInt(gigScore * 5.0f);
         string starRating = string.Concat(Enumerable.Repeat("*", numberOfStars));
         yield return Typewriter.TypewriterEffect(starsText, starRating, typewriterSpeed);
 
-        // Determine which review text to show based on the score.
         string review;
         if (gigScore > 0.7f)
         {
@@ -125,48 +120,21 @@ public class GigPlayer : MonoBehaviour
         }
         yield return Typewriter.TypewriterEffect(reviewText, review, typewriterSpeed);
 
-        // --- Rewards ---
         int cash = Mathf.RoundToInt(gigData.BaseGigCash * gigScore);
         yield return CountToNumber(cashText, cash, 1.0f, "$");
         int fans = Mathf.RoundToInt(gigData.BaseGigFans * gigScore);
         yield return CountToNumber(fansText, fans, 1.0f, "+");
 
-        // Apply the rewards to the player's stats.
         playerStats.AdjustFans(fans);
+        playerStats.IncreaseCash(cash);
 
-        // --- Wait for Continue ---
         yield return FadeInstruction(0, 1, 0.2f);
         yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());
 
-        // --- Outro ---
         yield return canvasFader.Co_FadeOut();
         GigEventBus.RaiseGigComplete();
     }
 
-    #region --- Animation Coroutines ---
-
-    /// <summary>
-    /// Animates the scale of a Transform using a curve for a bouncy effect.
-    /// </summary>
-    private IEnumerator LerpElementSize(Transform element, Vector3 startSize, Vector3 endSize, float duration)
-    {
-        element.localScale = startSize;
-        float timeElapsed = 0.0f;
-
-        while (timeElapsed < duration)
-        {
-            timeElapsed += Time.deltaTime;
-            float t = timeElapsed / duration;
-            element.localScale = Vector3.LerpUnclamped(startSize, endSize, scaleCurve.Evaluate(t));
-            yield return null;
-        }
-
-        element.localScale = endSize;
-    }
-
-    /// <summary>
-    /// Animates a TMP text element to count up from 0 to a target value.
-    /// </summary>
     private IEnumerator CountToNumber(TextMeshProUGUI textElement, int targetValue, float duration, string prefix = "")
     {
         float timeElapsed = 0.0f;
@@ -184,9 +152,7 @@ public class GigPlayer : MonoBehaviour
         textElement.text = prefix + targetValue.ToString();
     }
 
-    /// <summary>
-    /// Fades the alpha of the instruction text using a curve.
-    /// </summary>
+
     private IEnumerator FadeInstruction(float startAlpha, float endAlpha, float duration)
     {
         instructionText.alpha = startAlpha;
@@ -202,5 +168,4 @@ public class GigPlayer : MonoBehaviour
 
         instructionText.alpha = endAlpha;
     }
-    #endregion
 }

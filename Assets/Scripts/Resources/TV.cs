@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// A specific implementation of a Resource that represents a TV.
-/// Interacting with the TV restores the player's happiness stat.
-/// </summary>
 public class TV : Resource
 {
     public override void Use(PlayerStats playerStats)
@@ -22,7 +18,7 @@ public class TV : Resource
         {
             IsHappy = true;
         }
-        stats.FillHappiness(resourceFillRate);
+        stats.IncreaseHappiness(resourceFillRate * Time.deltaTime);
     }
 
     private void StopWatchingTV()

@@ -1,13 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [SerializeField] private GameFlagsSO gameFlags;
+    [SerializeField] private List<RequestDataSO> allRequests = new();
+    [SerializeField] private float requestChance = 0.5f;
 
-    public GigDataSO currentGig = null;
+    public GigDataSO CurrentGig { get; private set; } = null;
+
     private int daysUntilGig = -1;
+    private List<RequestDataSO> availableRequests = new();
+
+    private bool hasPlayedTutorial = true;
 
     void Awake()
     {
@@ -18,11 +24,13 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
     {
-        if (gameFlags.HasPlayedTutorial)
+        availableRequests = new(allRequests);
+        if (hasPlayedTutorial)
         {
             GigEventBus.RaiseStartGigSelection();
         }
@@ -38,6 +46,7 @@ public class GameManager : MonoBehaviour
         GigEventBus.OnGigSelected += SelectGig;
         GigEventBus.OnGigComplete += CompleteGig;
         ClockEventBus.OnDayComplete += CompleteDay;
+        RequestEventBus.OnCompleteRequest += CompleteRequest;
     }
 
     void OnDisable()
@@ -46,12 +55,13 @@ public class GameManager : MonoBehaviour
         GigEventBus.OnGigSelected -= SelectGig;
         GigEventBus.OnGigComplete -= CompleteGig;
         ClockEventBus.OnDayComplete -= CompleteDay;
+        RequestEventBus.OnCompleteRequest -= CompleteRequest;
     }
 
     void CompleteTutorial()
     {
         GigEventBus.RaiseStartGigSelection();
-        gameFlags.SetHasPlayTutorial(true);
+        hasPlayedTutorial = true;
     }
 
     void CompleteGig()
@@ -61,7 +71,7 @@ public class GameManager : MonoBehaviour
 
     void SelectGig(GigDataSO gigData)
     {
-        currentGig = gigData;
+        CurrentGig = gigData;
         daysUntilGig = gigData.DaysUntilGig;
         ClockEventBus.RaiseStartDay(daysUntilGig);
     }
@@ -74,11 +84,27 @@ public class GameManager : MonoBehaviour
         daysUntilGig--;
         if (daysUntilGig <= 0)
         {
-            GigEventBus.RaisePlayGig(currentGig);
+            GigEventBus.RaisePlayGig(CurrentGig);
         }
         else
         {
-            ClockEventBus.RaiseStartDay(daysUntilGig);
+            if (Random.value < requestChance)
+            {
+                int i = Random.Range(0, availableRequests.Count);
+                RequestDataSO request = availableRequests[i];
+                // availableRequests.RemoveAt(i);
+                RequestEventBus.RaiseStartRequest(request);
+            }
+            else
+            {
+                requestChance = Mathf.Min(1.0f, requestChance + 0.25f);
+                ClockEventBus.RaiseStartDay(daysUntilGig);
+            }
         }
+    }
+
+    void CompleteRequest()
+    {
+        ClockEventBus.RaiseStartDay(daysUntilGig);
     }
 }

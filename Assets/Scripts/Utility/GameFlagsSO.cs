@@ -1,9 +1,9 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GameFlagsSO", menuName = "GameFlagsSO", order = 0)]
+[CreateAssetMenu(fileName = "NewGameFlags", menuName = "Scriptable Objects/GameFlags", order = 0)]
 public class GameFlagsSO : ScriptableObject
 {
-    public bool HasPlayedTutorial { get; private set; } = true;
+    public bool HasPlayedTutorial { get; private set; } = false;
 
     public void SetHasPlayTutorial(bool value)
     {

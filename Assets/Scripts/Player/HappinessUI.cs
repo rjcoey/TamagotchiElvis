@@ -1,30 +1,30 @@
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 
 public class HappinessUI : MonoBehaviour
 {
     [SerializeField] private Image happinessFill;
 
-    private PlayerStats playerStats;
-
     void OnEnable()
     {
-        PlayerEventBus.OnSpawnPlayer += SetPlayerStats;
+        PlayerEventBus.OnHappinessIncreased += IncreaseHappinessUI;
+        PlayerEventBus.OnHappinessDecreased += DecreaseHappinessUI;
     }
 
     void OnDisable()
     {
-        PlayerEventBus.OnSpawnPlayer -= SetPlayerStats;
+        PlayerEventBus.OnHappinessIncreased -= IncreaseHappinessUI;
+        PlayerEventBus.OnHappinessDecreased -= DecreaseHappinessUI;
     }
 
-    void Update()
+    private void IncreaseHappinessUI(float newFill, bool playFeedback)
     {
-        if (playerStats == null) return;
-        happinessFill.fillAmount = playerStats.CurrentHappiness / playerStats.MaxHappiness;
+        happinessFill.fillAmount = newFill;
     }
 
-    private void SetPlayerStats(PlayerStats stats)
+    private void DecreaseHappinessUI(float newFill, bool playFeedback)
     {
-        playerStats = stats;
+        happinessFill.fillAmount = newFill;
     }
 }

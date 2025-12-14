@@ -18,7 +18,7 @@ public class Guitar : Resource
         {
             IsPractising = true;
         }
-        stats.FillTalent(resourceFillRate);
+        stats.IncreaseTalent(resourceFillRate * Time.deltaTime);
     }
 
     private void StopPractising()

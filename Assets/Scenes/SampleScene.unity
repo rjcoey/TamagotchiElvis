@@ -1960,7 +1960,7 @@ GameObject:
   - component: {fileID: 487301228}
   - component: {fileID: 487301227}
   m_Layer: 5
-  m_Name: Request Text
+  m_Name: Body Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1982,8 +1982,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.3}
   m_AnchorMax: {x: 1, y: 0.8}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -50, y: 0}
+  m_AnchoredPosition: {x: 0, y: 12.5}
+  m_SizeDelta: {x: -100, y: -75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &487301227
 MonoBehaviour:
@@ -2041,7 +2041,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2167,7 +2167,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 515277308}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 563809070}
+        m_TargetAssemblyTypeName: RequestUI, Assembly-CSharp
+        m_MethodName: AcceptRequest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &515277308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2218,13 +2230,14 @@ GameObject:
   - component: {fileID: 563809069}
   - component: {fileID: 563809068}
   - component: {fileID: 563809067}
+  - component: {fileID: 563809070}
   m_Layer: 5
   m_Name: Request Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &563809065
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2293,7 +2306,7 @@ CanvasGroup:
   m_GameObject: {fileID: 563809064}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 1
+  m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!222 &563809069
@@ -2304,6 +2317,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 563809064}
   m_CullTransparentMesh: 0
+--- !u!114 &563809070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563809064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c17db65e98c92c4391ba25e44602b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 0.5
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.6601681
+      value: 1.1100528
+      inSlope: 0.3255825
+      outSlope: 0.3255825
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -1.1487702
+      outSlope: -1.1487702
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33370066
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  titleText: {fileID: 1133075307}
+  bodyText: {fileID: 487301227}
+  buttonsObject: {fileID: 1312365562}
 --- !u!1 &583330314
 GameObject:
   m_ObjectHideFlags: 0
@@ -3226,18 +3288,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 138120512498025070, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 138120512498025070, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 138120512498025070, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 138120512498025070, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3277,68 +3327,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 138120512498025070, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6081446517091249084, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
       propertyPath: m_Name
       value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1623940756706341629, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
-    - {fileID: 153400577679264456, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
-    - {fileID: 4457996341772880802, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
-    - {fileID: 9128924392162112251, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
-    - {fileID: 8329599876741705912, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
-    - {fileID: 712638767835149881, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
-    - {fileID: 8306481157598052614, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
-    - {fileID: 6030161367762609747, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
-    - {fileID: 3537327293992977209, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6081446517091249084, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 843572003}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
---- !u!1 &843572002 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6081446517091249084, guid: b50f8f3efb16dda4ab42bee87f91df96, type: 3}
-  m_PrefabInstance: {fileID: 843572001}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &843572003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 843572002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SerializedVersion: 0
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 55
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 092b8d8a851ee404ba4ac8c1ce25bcb3, type: 2}
-  m_BuildHeightMesh: 0
 --- !u!1001 &891897151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4385,7 +4382,7 @@ GameObject:
   - component: {fileID: 1133075308}
   - component: {fileID: 1133075307}
   m_Layer: 5
-  m_Name: Request Title
+  m_Name: Title Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5316,6 +5313,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameFlags: {fileID: 11400000, guid: 5c43c096739e1824c884d07a3acb078d, type: 2}
+  allRequests:
+  - {fileID: 11400000, guid: c195d48eea142c943bbc6eb46af79074, type: 2}
+  requestChance: 1
 --- !u!1 &1323795504
 GameObject:
   m_ObjectHideFlags: 0
@@ -7087,9 +7087,9 @@ MonoBehaviour:
   startHunger: 50
   startHappiness: 50
   startTalent: 50
-  hungerDecayRate: 2
-  happinessDecayRate: 1
-  talentDecayRate: 2.5
+  hungerDecayRate: 0
+  happinessDecayRate: 0
+  talentDecayRate: 0
 --- !u!114 &1673841497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7667,7 +7667,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1978681257}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 563809070}
+        m_TargetAssemblyTypeName: RequestUI, Assembly-CSharp
+        m_MethodName: DeclineRequest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1978681257
 MonoBehaviour:
   m_ObjectHideFlags: 0

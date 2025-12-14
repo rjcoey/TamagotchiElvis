@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// ScriptableObject that holds all the data for a single gig.
 /// </summary>
-[CreateAssetMenu(fileName = "New Gig Data", menuName = "Gigs/New Gig Data", order = 0)]
+[CreateAssetMenu(fileName = "New Gig Data", menuName = "Scriptable Objects/Gig Data", order = 0)]
 public class GigDataSO : ScriptableObject
 {
     [field: SerializeField] public string GigLocation { get; private set; }

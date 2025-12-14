@@ -10,21 +10,25 @@ public class CanvasFader : MonoBehaviour
     void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        SetAlphaImmediate(0.0f, false);
     }
 
-    public void SetAlphaImmediate(float value)
+
+
+    public void SetAlphaImmediate(float value, bool interactable)
     {
         canvasGroup.alpha = value;
+        canvasGroup.interactable = interactable;
     }
 
-    public IEnumerator Co_FadeIn(float fadeDuration = 2.0f)
+    public IEnumerator Co_FadeIn(float fadeDuration = .5f)
     {
         yield return Co_RunFade(0.0f, 1.0f, fadeDuration);
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
     }
 
-    public IEnumerator Co_FadeOut(float fadeDuration = 2.0f)
+    public IEnumerator Co_FadeOut(float fadeDuration = .5f)
     {
         yield return Co_RunFade(1, 0, fadeDuration);
         canvasGroup.interactable = false;

@@ -38,7 +38,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float talentDecayRate = 1.0f;
 
     private int currentFans = 0;
-    // private int currentCash = 0;
+    private int currentCash = 0;
 
 
     void OnEnable()
@@ -67,18 +67,6 @@ public class PlayerStats : MonoBehaviour
     {
         if (!IsGameRunning) return;
 
-        // --- Stat Decay Logic ---
-        // If the player is not actively using a corresponding resource, decay the stat.
-        if (!Resource.IsEating)
-            CurrentHunger = LoseResource(CurrentHunger, hungerDecayRate * Time.deltaTime);
-
-        if (!Resource.IsHappy)
-            CurrentHappiness = LoseResource(CurrentHappiness, happinessDecayRate * Time.deltaTime);
-
-        if (!Resource.IsPractising)
-            CurrentTalent = LoseResource(CurrentTalent, talentDecayRate * Time.deltaTime);
-
-        // --- Game Over Condition Checks ---
         // Check if any stat has hit a max or min threshold.
         if (CurrentHunger >= MaxHunger) TriggerGameOver(GameOverReason.Overeating);
         if (CurrentHunger <= 0.0f) TriggerGameOver(GameOverReason.Starvation);
@@ -86,6 +74,17 @@ public class PlayerStats : MonoBehaviour
         if (CurrentHappiness <= 0.0f) TriggerGameOver(GameOverReason.Sadness);
         if (CurrentTalent >= MaxTalent) TriggerGameOver(GameOverReason.Burnout);
         if (CurrentTalent <= 0.0f) TriggerGameOver(GameOverReason.Sellout);
+
+        // --- Stat Decay Logic ---
+        // If the player is not actively using a corresponding resource, decay the stat.
+        if (!Resource.IsEating)
+            DecreaseHunger(hungerDecayRate * Time.deltaTime);
+
+        if (!Resource.IsHappy)
+            DecreaseHappiness(happinessDecayRate * Time.deltaTime);
+
+        if (!Resource.IsPractising)
+            DecreaseTalent(talentDecayRate * Time.deltaTime);
     }
 
     /// <summary>
@@ -96,6 +95,7 @@ public class PlayerStats : MonoBehaviour
         if (!IsGameRunning) return;
 
         IsGameRunning = false;
+        ClockEventBus.RaisePauseTimer();
         GameEventBus.RaiseGameOver(reason);
     }
 
@@ -109,29 +109,127 @@ public class PlayerStats : MonoBehaviour
         IsGameRunning = false;
     }
 
-    public void FillHunger(float fillRate)
+    public void IncreaseStatImmediate(STAT stat, float amount)
     {
-        CurrentHunger = FillResource(CurrentHunger, fillRate * Time.deltaTime, MaxHunger);
+        switch (stat)
+        {
+            case STAT.NULL:
+                break;
+            case STAT.HUNGER:
+                IncreaseHunger(amount, true);
+                break;
+            case STAT.HAPPINESS:
+                IncreaseHappiness(amount, true);
+                break;
+            case STAT.TALENT:
+                IncreaseTalent(amount, true);
+                break;
+            case STAT.FANS:
+                AdjustFans(Mathf.RoundToInt(amount));
+                break;
+            case STAT.CASH:
+                break;
+            default:
+                break;
+        }
     }
 
-    public void FillHappiness(float fillRate)
+    public void DecreaseStatImmediate(STAT stat, float amount)
     {
-        CurrentHappiness = FillResource(CurrentHappiness, fillRate * Time.deltaTime, MaxHappiness);
+        switch (stat)
+        {
+            case STAT.NULL:
+                break;
+            case STAT.HUNGER:
+                DecreaseHunger(amount, true);
+                break;
+            case STAT.HAPPINESS:
+                DecreaseHappiness(amount, true);
+                break;
+            case STAT.TALENT:
+                DecreaseTalent(amount, true);
+                break;
+            case STAT.FANS:
+                AdjustFans(-Mathf.RoundToInt(amount));
+                break;
+            case STAT.CASH:
+                break;
+            default:
+                break;
+        }
+
     }
 
-    public void FillTalent(float fillRate)
+    public void IncreaseHunger(float amount, bool playFeedback = false)
     {
-        CurrentTalent = FillResource(CurrentTalent, fillRate * Time.deltaTime, MaxTalent);
+        CurrentHunger = Mathf.Min(MaxHunger, CurrentHunger + amount);
+        if (CurrentHunger >= MaxHunger)
+        {
+            TriggerGameOver(GameOverReason.Overeating);
+        }
+        PlayerEventBus.RaiseHungerIncreased(CurrentHunger / MaxHunger, playFeedback);
     }
 
-    private float FillResource(float currentAmount, float amountToGain, float maxValue)
+    private void DecreaseHunger(float amount, bool playFeedback = false)
     {
-        return Mathf.Min(currentAmount + amountToGain, maxValue);
+        CurrentHunger = Mathf.Max(0.0f, CurrentHunger - amount);
+        if (CurrentHunger <= 0)
+        {
+            TriggerGameOver(GameOverReason.Starvation);
+        }
+        PlayerEventBus.RaiseHungerDecreased(CurrentHunger / MaxHunger, playFeedback);
     }
 
-    private float LoseResource(float currentAmount, float amountToLose)
+    public void IncreaseHappiness(float amount, bool playFeedback = false)
     {
-        return Mathf.Max(currentAmount - amountToLose, 0.0f);
+        CurrentHappiness = Mathf.Min(MaxHappiness, CurrentHappiness + amount);
+        if (CurrentHappiness >= MaxHappiness)
+        {
+            TriggerGameOver(GameOverReason.Retiring);
+        }
+        PlayerEventBus.RaiseHappinessIncreased(CurrentHappiness / MaxHappiness, playFeedback);
+    }
+
+    private void DecreaseHappiness(float amount, bool playFeedback = false)
+    {
+        CurrentHappiness = Mathf.Max(0.0f, CurrentHappiness - amount);
+        if (CurrentHappiness <= 0)
+        {
+            TriggerGameOver(GameOverReason.Sadness);
+        }
+        PlayerEventBus.RaiseHappinessDecreased(CurrentHappiness / MaxHappiness, playFeedback);
+    }
+
+    public void IncreaseTalent(float amount, bool playFeedback = false)
+    {
+        CurrentTalent = Mathf.Min(MaxTalent, CurrentTalent + amount);
+        if (CurrentTalent >= MaxTalent)
+        {
+            TriggerGameOver(GameOverReason.Burnout);
+        }
+        PlayerEventBus.RaiseTalentIncreased(CurrentTalent / MaxTalent, playFeedback);
+    }
+
+    private void DecreaseTalent(float amount, bool playFeedback = false)
+    {
+        CurrentTalent = Mathf.Max(0.0f, CurrentTalent - amount);
+        if (CurrentTalent <= 0)
+        {
+            TriggerGameOver(GameOverReason.Sellout);
+        }
+        PlayerEventBus.RaiseTalentDecreased(CurrentTalent / MaxTalent, playFeedback);
+    }
+
+    public void IncreaseCash(int amount)
+    {
+        currentCash += amount;
+        PlayerEventBus.RaiseCashIncreased(currentCash);
+    }
+
+    public void DecreaseCash(int amount)
+    {
+        currentCash -= amount;
+        PlayerEventBus.RaiseCashDecreased(currentCash);
     }
 
     public void AdjustFans(int fansAmount)

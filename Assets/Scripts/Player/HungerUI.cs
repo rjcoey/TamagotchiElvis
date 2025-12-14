@@ -5,27 +5,25 @@ public class HungerUI : MonoBehaviour
 {
     [SerializeField] private Image hungerFill;
 
-    private PlayerStats playerStats;
-
     void OnEnable()
     {
-        PlayerEventBus.OnSpawnPlayer += SetPlayerStats;
+        PlayerEventBus.OnHungerIncreased += IncreaseHungerUI;
+        PlayerEventBus.OnHungerDecreased += DecreaseHungerUI;
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
-        PlayerEventBus.OnSpawnPlayer -= SetPlayerStats;
+        PlayerEventBus.OnHungerIncreased -= IncreaseHungerUI;
+        PlayerEventBus.OnHungerDecreased -= DecreaseHungerUI;
     }
 
-    void Update()
+    private void IncreaseHungerUI(float newFill, bool playFeedback)
     {
-        if (playerStats == null) return;
-
-        hungerFill.fillAmount = playerStats.CurrentHunger / playerStats.MaxHunger;
+        hungerFill.fillAmount = newFill;
     }
 
-    private void SetPlayerStats(PlayerStats stats)
+    private void DecreaseHungerUI(float newFill, bool playFeedback)
     {
-        playerStats = stats;
+        hungerFill.fillAmount = newFill;
     }
 }
