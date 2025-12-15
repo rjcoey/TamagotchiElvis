@@ -5314,7 +5314,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allRequests:
   - {fileID: 11400000, guid: 5eed93fefdc318042b1d2e41cc4bea03, type: 2}
-  allGigs: []
+  allGigs:
+  - {fileID: 11400000, guid: 4357e46b73831ad44a22badc7621e316, type: 2}
+  - {fileID: 11400000, guid: 0f359ee1e7009474cb070ca40f7c9d77, type: 2}
   requestChance: 1
 --- !u!1 &1323795504
 GameObject:

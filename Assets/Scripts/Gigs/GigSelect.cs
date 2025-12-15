@@ -33,6 +33,13 @@ public class GigSelect : MonoBehaviour
 
     private IEnumerator Co_GigSelection()
     {
+        gigOptions.Clear();
+
+        for (int i = 0; i < 2; i++)
+        {
+            gigOptions.Add(GameManager.Instance.GetGigData());
+        }
+
         InitialiseButtons();
         yield return canvasFader.Co_FadeIn(fadeDuration);
     }

@@ -110,4 +110,17 @@ public class GameManager : MonoBehaviour
     {
         ClockEventBus.RaiseStartDay(daysUntilGig);
     }
+
+    public GigDataSO GetGigData()
+    {
+        if (availableGigs.Count <= 0)
+        {
+            availableGigs = new(allGigs);
+        }
+
+        int i = Random.Range(0, availableGigs.Count);
+        GigDataSO gigData = availableGigs[i];
+        availableGigs.RemoveAt(i);
+        return gigData;
+    }
 }
