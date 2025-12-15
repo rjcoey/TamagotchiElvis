@@ -5312,9 +5312,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ccb1acaf6c84e2499b4aa2bb9d379f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameFlags: {fileID: 11400000, guid: 5c43c096739e1824c884d07a3acb078d, type: 2}
   allRequests:
-  - {fileID: 11400000, guid: c195d48eea142c943bbc6eb46af79074, type: 2}
+  - {fileID: 11400000, guid: 5eed93fefdc318042b1d2e41cc4bea03, type: 2}
+  allGigs: []
   requestChance: 1
 --- !u!1 &1323795504
 GameObject:
@@ -7239,10 +7239,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee5e963e33c6a44f8e8a9601e8656dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameFlags: {fileID: 11400000, guid: 5c43c096739e1824c884d07a3acb078d, type: 2}
   gigOptions:
-  - {fileID: 11400000, guid: cd585c16b95d386409788f0f4ace365a, type: 2}
-  - {fileID: 11400000, guid: 2d324473b6641b94fa91bb0a1810a7d7, type: 2}
+  - {fileID: 11400000, guid: 4357e46b73831ad44a22badc7621e316, type: 2}
+  - {fileID: 11400000, guid: 0f359ee1e7009474cb070ca40f7c9d77, type: 2}
   gigButtons:
   - {fileID: 1116437306}
   - {fileID: 1118759417}

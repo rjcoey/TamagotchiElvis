@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GigSelect : MonoBehaviour
 {
-    [SerializeField] private GameFlagsSO gameFlags;
-
     [SerializeField] private List<GigDataSO> gigOptions = new();
     [SerializeField] private List<GigButton> gigButtons = new();
 

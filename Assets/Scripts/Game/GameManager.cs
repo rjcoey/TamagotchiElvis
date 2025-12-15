@@ -6,12 +6,15 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] private List<RequestDataSO> allRequests = new();
+    [SerializeField] private List<GigDataSO> allGigs = new();
     [SerializeField] private float requestChance = 0.5f;
 
     public GigDataSO CurrentGig { get; private set; } = null;
 
     private int daysUntilGig = -1;
+
     private List<RequestDataSO> availableRequests = new();
+    private List<GigDataSO> availableGigs = new();
 
     private bool hasPlayedTutorial = true;
 

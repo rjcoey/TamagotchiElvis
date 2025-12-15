@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d84d78d26dfb37d4b83d60c764556ce1, type: 3}
-  m_Name: TestData
+  m_Name: Dot
   m_EditorClassIdentifier: 
   <RequestTitle>k__BackingField: Dot
   <SetupText>k__BackingField: Dot has asked you to go backstage after his show to
     try a new drug called "smocaine". It's like regular cocaine that you smoke!
-  <AcceptedText>k__BackingField: Dot gave you some hot tips while taking the schmocaine,
+  <AcceptedText>k__BackingField: Dot gave you some hot tips while taking the schmocaine
     but you've not ate in 17 hours.
-  <RejectedText>k__BackingField: 'Best not, you gotta keep a clear mind for your
-    guitar playing shenanigans. '
+  <RejectedText>k__BackingField: 'Best not you gotta keep a clear mind for your guitar
+    playing shenanigans. '
   <StatToIncrease>k__BackingField: 3
   <IncreaseAmount>k__BackingField: 10
   <StatToDecrease>k__BackingField: 1

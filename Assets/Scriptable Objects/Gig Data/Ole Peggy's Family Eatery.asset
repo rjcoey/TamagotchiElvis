@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e24299ad84b7ca741a0c9fc8fc10b45d, type: 3}
-  m_Name: Old Peggy
+  m_Name: Ole Peggy's Family Eatery
   m_EditorClassIdentifier: 
-  <GigLocation>k__BackingField: Old Peggy's Family Eatery
+  <GigLocation>k__BackingField: Ole Peggy's Family Eatery
   <DaysUntilGig>k__BackingField: 3
-  <BaseGigCash>k__BackingField: 100
-  <GigCashRating>k__BackingField: 2
-  <BaseGigFans>k__BackingField: 50
+  <BaseGigFans>k__BackingField: 10
   <GigFansRating>k__BackingField: 1
+  <BaseGigCash>k__BackingField: 75
+  <GigCashRating>k__BackingField: 2
   <PositiveReview>k__BackingField: 'Old Peggy''s going to need a second hearing aid
     after having her roof blown off last night! '
-  <NeutralReview>k__BackingField: Not quite the family style that Old Peggy's is
-    known for, but still an somewhat enjoyable experience.
+  <NeutralReview>k__BackingField: '"Not quite the family style that Old Peggy''s
+    is known for but still an somewhat enjoyable experience."'
   <NegativeReview>k__BackingField: Old Peggy has lost her marbles if she thinks this
     is acceptable Saturday night entertainment.
   <GigDifficultyCurve>k__BackingField:
@@ -29,19 +29,19 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      value: 0.2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      value: 0.8
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
