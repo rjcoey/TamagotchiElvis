@@ -93,9 +93,7 @@ public class GameManager : MonoBehaviour
         {
             if (Random.value < requestChance)
             {
-                int i = Random.Range(0, availableRequests.Count);
-                RequestDataSO request = availableRequests[i];
-                // availableRequests.RemoveAt(i);
+                RequestDataSO request = GetRequestData();
                 RequestEventBus.RaiseStartRequest(request);
             }
             else
@@ -122,5 +120,18 @@ public class GameManager : MonoBehaviour
         GigDataSO gigData = availableGigs[i];
         availableGigs.RemoveAt(i);
         return gigData;
+    }
+
+    private RequestDataSO GetRequestData()
+    {
+        if (availableRequests.Count <= 0)
+        {
+            availableRequests = new(allRequests);
+        }
+
+        int i = Random.Range(0, availableRequests.Count);
+        RequestDataSO request = availableRequests[i];
+        availableRequests.RemoveAt(i);
+        return request;
     }
 }

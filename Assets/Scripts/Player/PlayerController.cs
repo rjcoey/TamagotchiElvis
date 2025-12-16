@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float sphereCastRadius = 0.5f;
+
     private NavMeshAgent agent;
     private PlayerStats playerStats;
     private Camera mainCamera;
@@ -56,24 +59,31 @@ public class PlayerController : MonoBehaviour
 
         if (clickAction.WasCompletedThisFrame())
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
+
             Ray ray = mainCamera.ScreenPointToRay(screenPosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.SphereCast(ray, sphereCastRadius, out hit))
             {
                 if (hit.collider.TryGetComponent(out Resource resource))
                 {
                     if (currentResource != resource)
                     {
                         currentResource?.StopUsing();
+                        currentResource?.HideTooltip();
                         currentResource = resource;
-                        agent.SetDestination(resource.UsePoint.position);
+                        currentResource.ShowToolTip();
+                        // agent.SetDestination(resource.UsePoint.position);
                     }
                 }
                 else
                 {
                     agent.SetDestination(hit.point);
                     currentResource?.StopUsing();
+                    currentResource?.HideTooltip();
                     currentResource = null;
                 }
             }
