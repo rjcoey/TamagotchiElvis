@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float sphereCastRadius = 0.5f;
 
     private NavMeshAgent agent;
+    private Animator anim;
     private PlayerStats playerStats;
     private Camera mainCamera;
     private InputAction pointAction;
@@ -19,6 +20,8 @@ public class PlayerController : MonoBehaviour
     {
         PlayerEventBus.OnEnablePlayer += EnablePlayerControl;
         PlayerEventBus.OnDisablePlayer += DisablePlayerControl;
+
+        PlayerEventBus.OnUseButtonClicked += HandleUseButtonClicked;
 
         GameEventBus.OnGameOver += GameOver;
 
@@ -32,6 +35,8 @@ public class PlayerController : MonoBehaviour
         PlayerEventBus.OnEnablePlayer -= EnablePlayerControl;
         ClockEventBus.OnDayComplete -= DisablePlayerControl;
 
+        PlayerEventBus.OnUseButtonClicked += HandleUseButtonClicked;
+
         GameEventBus.OnGameOver -= GameOver;
 
         // pointAction?.Disable();
@@ -41,6 +46,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         mainCamera = Camera.main;
+        anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         playerStats = GetComponent<PlayerStats>();
         pointAction = InputSystem.actions.FindAction("Point");
@@ -50,7 +56,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
         if (!playerStats.IsGameRunning) return;
 
         if (clickAction == null || pointAction == null) return;
@@ -72,11 +77,8 @@ public class PlayerController : MonoBehaviour
                 {
                     if (currentResource != resource)
                     {
-                        currentResource?.StopUsing();
                         currentResource?.HideTooltip();
-                        currentResource = resource;
-                        currentResource.ShowToolTip();
-                        // agent.SetDestination(resource.UsePoint.position);
+                        resource.ShowToolTip();
                     }
                 }
                 else
@@ -97,8 +99,17 @@ public class PlayerController : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, currentResource.UsePoint.position) < 0.1f)
             {
-                currentResource.Use(playerStats);
+                currentResource.ApplyEffect(playerStats);
             }
+        }
+
+        if (agent.hasPath || agent.remainingDistance > agent.stoppingDistance)
+        {
+            anim.SetFloat("speed", agent.speed);
+        }
+        else
+        {
+            anim.SetFloat("speed", 0.0f);
         }
     }
 
@@ -112,6 +123,17 @@ public class PlayerController : MonoBehaviour
         agent.ResetPath();
         agent.isStopped = true;
         currentResource = null;
+    }
+
+    private void HandleUseButtonClicked(Resource resource)
+    {
+        if (currentResource != resource)
+        {
+            currentResource?.StopUsing();
+            currentResource = resource;
+            currentResource.HideTooltip();
+            agent.SetDestination(resource.UsePoint.position);
+        }
     }
 
     private void GameOver(GameOverReason reason)

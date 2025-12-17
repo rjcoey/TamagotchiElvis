@@ -1,5 +1,4 @@
 using TMPro;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +7,8 @@ public class ResourceTooltipUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI labelText;
     [SerializeField] private TextMeshProUGUI upgradeText;
     [SerializeField] private TextMeshProUGUI levelText;
+
+    private Resource currentResource;
 
     private RectTransform rectTransform;
 
@@ -26,6 +27,17 @@ public class ResourceTooltipUI : MonoBehaviour
         labelText.text = resource.name;
         upgradeText.text = $"Upgrade ${resource.UpgradeCost}";
         levelText.text = $"{resource.CurrentLevel + 1} / 3";
+        currentResource = resource;
+    }
+
+    public void OnUseClicked()
+    {
+        PlayerEventBus.RaiseUseButtonClicked(currentResource);
+    }
+
+    public void OnUpgradeClicked()
+    {
+        currentResource.TryUpgrade();
     }
 
     void UpdatePosition()

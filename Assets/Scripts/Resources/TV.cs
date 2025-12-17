@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class TV : Resource
 {
-    public override void Use(PlayerStats playerStats)
+    public override void ApplyEffect(PlayerStats stats)
     {
-        WatchTV(playerStats);
+        WatchTV(stats);
     }
 
     public override void StopUsing()

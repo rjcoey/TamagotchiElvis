@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Guitar : Resource
 {
-    public override void Use(PlayerStats playerStats)
+    public override void ApplyEffect(PlayerStats stats)
     {
-        PractiseGuitar(playerStats);
+        PractiseGuitar(stats);
     }
 
     public override void StopUsing()

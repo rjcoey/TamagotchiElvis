@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 
 public class PlayerEventBus
@@ -37,4 +38,7 @@ public class PlayerEventBus
 
     public static event Action OnDisablePlayer;
     public static void RaiseDisablePlayer() => OnDisablePlayer?.Invoke();
+
+    public static event Action<Resource> OnUseButtonClicked;
+    public static void RaiseUseButtonClicked(Resource resource) => OnUseButtonClicked?.Invoke(resource);
 }

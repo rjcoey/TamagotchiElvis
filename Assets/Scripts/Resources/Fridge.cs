@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Fridge : Resource
 {
-    public override void Use(PlayerStats playerStats)
+    public override void ApplyEffect(PlayerStats stats)
     {
-        Eat(playerStats);
+        Eat(stats);
     }
 
     public override void StopUsing()

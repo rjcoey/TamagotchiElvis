@@ -38,8 +38,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float talentDecayRate = 1.0f;
 
     private int currentFans = 0;
-    private int currentCash = 0;
-
+    public int CurrentCash { get; private set; } = 0;
 
     void OnEnable()
     {
@@ -222,14 +221,14 @@ public class PlayerStats : MonoBehaviour
 
     public void IncreaseCash(int amount)
     {
-        currentCash += amount;
-        PlayerEventBus.RaiseCashIncreased(currentCash);
+        CurrentCash += amount;
+        PlayerEventBus.RaiseCashIncreased(CurrentCash);
     }
 
     public void DecreaseCash(int amount)
     {
-        currentCash -= amount;
-        PlayerEventBus.RaiseCashDecreased(currentCash);
+        CurrentCash -= amount;
+        PlayerEventBus.RaiseCashDecreased(CurrentCash);
     }
 
     public void AdjustFans(int fansAmount)

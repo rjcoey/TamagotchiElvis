@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Base class for all interactable resources in the game world (e.g., food, guitar, bed).
@@ -20,6 +21,18 @@ public class Resource : MonoBehaviour
     public static bool IsHappy = false;
     public static bool IsPractising = false;
 
+    private PlayerStats playerStats;
+
+    void OnEnable()
+    {
+        PlayerEventBus.OnSpawnPlayer += SetPlayerStats;
+    }
+
+    void OnDisable()
+    {
+        PlayerEventBus.OnSpawnPlayer -= SetPlayerStats;
+    }
+
     void Awake()
     {
         if (upgradeLevels.Length > 0)
@@ -28,15 +41,7 @@ public class Resource : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Player entered use trigger for " + gameObject.name);
-        }
-    }
-
-    public virtual void Use(PlayerStats playerStats) { }
+    public virtual void ApplyEffect(PlayerStats stats) { }
 
     public virtual void StopUsing() { }
 
@@ -49,6 +54,20 @@ public class Resource : MonoBehaviour
     public void HideTooltip()
     {
         tooltip.gameObject.SetActive(false);
+    }
+
+    public void TryUpgrade()
+    {
+        if (playerStats.CurrentCash < UpgradeCost) return;
+        if (CurrentLevel >= upgradeLevels.Length - 1) return;
+        playerStats.DecreaseCash(UpgradeCost);
+        CurrentLevel++;
+        tooltip.InitTooltip(this);
+    }
+
+    void SetPlayerStats(PlayerStats playerStats)
+    {
+        this.playerStats = playerStats;
     }
 }
 
