@@ -12,9 +12,13 @@ public class ResourceTooltipUI : MonoBehaviour
 
     private RectTransform rectTransform;
 
+    private InputAction pointAction;
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+
+        pointAction = InputSystem.actions.FindAction("Point");
     }
 
     void OnEnable()
@@ -42,7 +46,8 @@ public class ResourceTooltipUI : MonoBehaviour
 
     void UpdatePosition()
     {
-        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        Vector2 targetPosition = pointAction.ReadValue<Vector2>();
+
 
         float tooltipWidth = rectTransform.rect.width;
         float tooltipHeight = rectTransform.rect.height;
@@ -52,8 +57,8 @@ public class ResourceTooltipUI : MonoBehaviour
         float minY = 0.0f;
         float maxY = Screen.height - tooltipHeight;
 
-        float clampedX = Mathf.Clamp(mousePosition.x + 10f, minX, maxX);
-        float clampedY = Mathf.Clamp(mousePosition.y + 10f, minY, maxY);
+        float clampedX = Mathf.Clamp(targetPosition.x + 10f, minX, maxX);
+        float clampedY = Mathf.Clamp(targetPosition.y + 10f, minY, maxY);
 
         rectTransform.position = new Vector2(clampedX, clampedY);
     }
