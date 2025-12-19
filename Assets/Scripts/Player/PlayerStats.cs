@@ -37,6 +37,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float happinessDecayRate = 1.0f;
     [SerializeField] private float talentDecayRate = 1.0f;
 
+    [SerializeField] private int maxFans = 1000;
+
     private int currentFans = 0;
     public int CurrentCash { get; private set; } = 0;
 
@@ -234,6 +236,10 @@ public class PlayerStats : MonoBehaviour
     public void AdjustFans(int fansAmount)
     {
         currentFans += fansAmount;
+        if (currentFans > maxFans)
+        {
+            GameEventBus.RaiseGameComplete();
+        }
         PlayerEventBus.RaiseUpdateFans(currentFans);
     }
 }

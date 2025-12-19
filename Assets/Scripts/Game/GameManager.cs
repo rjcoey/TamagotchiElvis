@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private List<RequestDataSO> availableRequests = new();
     private List<GigDataSO> availableGigs = new();
 
-    private bool hasPlayedTutorial = true;
+    private bool hasPlayedTutorial = false;
 
     void Awake()
     {
@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
