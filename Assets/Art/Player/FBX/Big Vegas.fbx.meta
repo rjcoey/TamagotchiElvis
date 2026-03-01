@@ -5,6 +5,26 @@ ModelImporter:
   internalIDToNameTable: []
   externalObjects:
   - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Character_Fat_Elvis_body_color1
+    second: {fileID: 2100000, guid: dab9a359745d71c48bb606783d1807c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Elvis_Brows_MAT1
+    second: {fileID: 2100000, guid: f9cd574aeff147145aa4127933e3ca78, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Elvis_Eyes_MAT1
+    second: {fileID: 2100000, guid: 226f115d6dd4a11409ce0a7c9eab8bc8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Elvis_Mouth_MAT1
+    second: {fileID: 2100000, guid: 44dcd499a864aeb4fb308a885659042f, type: 2}
+  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Elvis_FaceAnimMap
