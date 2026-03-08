@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: m_guitar
+  m_Name: m_TVStand
   m_Shader: {fileID: -6465566751694194690, guid: 55ee08efc1a613c4a815eccdd72d4df5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -115,12 +115,12 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _Cross_Hatch_Frequency: 200
+    - _Cross_Hatch_Frequency: 5
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _Dots_Density: 10
+    - _Dots_Density: 250
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
@@ -135,7 +135,7 @@ Material:
     - _ReceiveShadows: 1
     - _Rim_Light_Falloff: 0.9
     - _Slope_Mask_Max: 0.6
-    - _Smoothness: 0.2
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -144,9 +144,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.9882353, g: 0.7921569, b: 0.27450982, a: 1}
-    - _Color: {r: 0.9882353, g: 0.7921569, b: 0.2745098, a: 1}
-    - _Diffuse: {r: 0.7568628, g: 0.50980395, b: 0, a: 1}
+    - _BaseColor: {r: 0.99607843, g: 0.49803922, b: 0.1764706, a: 1}
+    - _Color: {r: 0.99607843, g: 0.49803913, b: 0.17647055, a: 1}
+    - _Diffuse: {r: 0.90588236, g: 0.43529412, b: 0.31764707, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Specular: {r: 1, g: 1, b: 1, a: 1}

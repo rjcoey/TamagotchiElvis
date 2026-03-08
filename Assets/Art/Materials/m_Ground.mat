@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: m_Ground
+  m_Name: m_ground
   m_Shader: {fileID: -6465566751694194690, guid: 55ee08efc1a613c4a815eccdd72d4df5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -219,7 +219,7 @@ Material:
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _CoatMask: 0
-    - _Cross_Hatch_Frequency: 5
+    - _Cross_Hatch_Frequency: 2
     - _Cull: 2
     - _CullMode: 2
     - _CullModeForward: 2
