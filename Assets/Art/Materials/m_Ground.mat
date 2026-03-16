@@ -219,7 +219,7 @@ Material:
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _CoatMask: 0
-    - _Cross_Hatch_Frequency: 2
+    - _Cross_Hatch_Frequency: 5
     - _Cull: 2
     - _CullMode: 2
     - _CullModeForward: 2
