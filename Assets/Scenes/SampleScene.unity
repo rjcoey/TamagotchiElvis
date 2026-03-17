@@ -1095,6 +1095,9 @@ MonoBehaviour:
     fillRate: 15
   - cost: 200
     fillRate: 20
+  meshRenderers:
+  - {fileID: 2095783837}
+  - {fileID: 1644664712}
 --- !u!65 &270654356
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1348,7 +1351,7 @@ Camera:
   field of view: 60.000004
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1371,8 +1374,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23909935, y: 0, z: 0, w: 0.9709952}
-  m_LocalPosition: {x: 15, y: 6, z: 6.25}
+  m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
+  m_LocalPosition: {x: 9, y: 20, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1446,7 +1449,7 @@ MonoBehaviour:
     DefaultMode: 2
   DefaultBlend:
     Style: 1
-    Time: 2
+    Time: 0.5
     CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -1747,7 +1750,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 3
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2130,7 +2133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &460834497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2447,6 +2450,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 487301225}
   m_CullTransparentMesh: 1
+--- !u!23 &504537217 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6936207430136644487, guid: 011e32ceb24c31e429a43daa3aa183ec, type: 3}
+  m_PrefabInstance: {fileID: 891897151}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &515277305
 GameObject:
   m_ObjectHideFlags: 0
@@ -3521,6 +3529,8 @@ MonoBehaviour:
     fillRate: 15
   - cost: 200
     fillRate: 20
+  meshRenderers:
+  - {fileID: 504537217}
 --- !u!1 &727393251
 GameObject:
   m_ObjectHideFlags: 0
@@ -5582,6 +5592,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 270654354}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &930251882 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23146818092934692, guid: b10fed84dcd24c34ea1d8d9f6368ddde, type: 3}
+  m_PrefabInstance: {fileID: 2862317096539937352}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &932314885
 GameObject:
   m_ObjectHideFlags: 0
@@ -6429,34 +6444,163 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials:
-  - TutorialText: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-      in tempor mi, ut efficitur dui. Quisque tincidunt nec ante et mollis. Suspendisse
-      potenti.
+  - TutorialText: 'Hey there kid. Welcome to Tamagotchi Elvis. I''m here to show
+      you the ropes. '
     OnTutorialStart:
       m_PersistentCalls:
         m_Calls: []
     OnTutorialFinish:
       m_PersistentCalls:
         m_Calls: []
-  - TutorialText: 'Curabitur rhoncus imperdiet convallis. Donec ornare, nunc nec
-      tincidunt aliquet, tellus augue venenatis leo, pulvinar lacinia nisi tellus
-      vitae mi. '
+  - TutorialText: These here are your stats, you don't want them getting too low
+      or too high.
     OnTutorialStart:
       m_PersistentCalls:
         m_Calls: []
     OnTutorialFinish:
       m_PersistentCalls:
         m_Calls: []
-  - TutorialText: Donec posuere dui vel libero tincidunt, vel tincidunt arcu scelerisque.
-      Duis ornare, risus in varius lacinia, massa mauris tincidunt sapien, non interdum
-      metus metus vitae orci. Duis ac tortor ultricies, imperdiet dui eu, ultricies
-      orci.
+  - TutorialText: 'The TV fills your happiness. '
     OnTutorialStart:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1176910538}
+          m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+          m_MethodName: ActivateTVCam
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 270654355}
+          m_TargetAssemblyTypeName: TV, Assembly-CSharp
+          m_MethodName: HighlightResource
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     OnTutorialFinish:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 270654355}
+          m_TargetAssemblyTypeName: TV, Assembly-CSharp
+          m_MethodName: EndHighlight
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - TutorialText: 'The Fridge fills your hunger. '
+    OnTutorialStart:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1176910538}
+          m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+          m_MethodName: ActivateFridgeCam
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 720922567}
+          m_TargetAssemblyTypeName: Fridge, Assembly-CSharp
+          m_MethodName: HighlightResource
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnTutorialFinish:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 720922567}
+          m_TargetAssemblyTypeName: Fridge, Assembly-CSharp
+          m_MethodName: EndHighlight
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - TutorialText: 'and the Guitar fills your talent. '
+    OnTutorialStart:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1176910538}
+          m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+          m_MethodName: ActivateGuitarCam
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1603218710}
+          m_TargetAssemblyTypeName: Guitar, Assembly-CSharp
+          m_MethodName: HighlightResource
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnTutorialFinish:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1176910538}
+          m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+          m_MethodName: ActivateLevelCam
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1603218710}
+          m_TargetAssemblyTypeName: Guitar, Assembly-CSharp
+          m_MethodName: EndHighlight
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   textBox: {fileID: 181830472}
   hudPanel: {fileID: 1497860901}
   fadeInTime: 1
@@ -7133,6 +7277,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164007358}
   m_CullTransparentMesh: 1
+--- !u!1 &1176910536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1176910537}
+  - component: {fileID: 1176910538}
+  m_Layer: 0
+  m_Name: Camera Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1176910537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176910536}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1341876330}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1176910538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176910536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd1547cca4261f49847fa4685fd74ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelCamera: {fileID: 1221473267}
+  tvCamera: {fileID: 831843323}
+  fridgeCamera: {fileID: 875317433}
+  guitarCamera: {fileID: 1798933171}
 --- !u!1 &1182729437
 GameObject:
   m_ObjectHideFlags: 0
@@ -7356,7 +7548,7 @@ GameObject:
   - component: {fileID: 1221473268}
   - component: {fileID: 1221473267}
   m_Layer: 0
-  m_Name: CinemachineCamera
+  m_Name: Level Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7376,7 +7568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Priority:
     Enabled: 1
-    m_Value: 0
+    m_Value: 1
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -7852,6 +8044,7 @@ Transform:
   - {fileID: 875317432}
   - {fileID: 1798933170}
   - {fileID: 330585546}
+  - {fileID: 1176910537}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1344621576
@@ -8683,7 +8876,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 63.85
+  m_fontSize: 63.8
   m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9071,6 +9264,8 @@ MonoBehaviour:
     fillRate: 15
   - cost: 200
     fillRate: 20
+  meshRenderers:
+  - {fileID: 930251882}
 --- !u!65 &1603218711
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9438,6 +9633,11 @@ PrefabInstance:
 --- !u!4 &1644664710 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7243868798994036714, guid: b38e514b977977746afd127f3cb68a71, type: 3}
+  m_PrefabInstance: {fileID: 1644664709}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1644664712 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7243868798996329738, guid: b38e514b977977746afd127f3cb68a71, type: 3}
   m_PrefabInstance: {fileID: 1644664709}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1650972213
@@ -10759,6 +10959,11 @@ PrefabInstance:
 --- !u!4 &2095783835 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4130047990820580219, guid: 6faa42109f3b39f4d980359124c3cb3a, type: 3}
+  m_PrefabInstance: {fileID: 2095783834}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2095783837 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4130047990818154907, guid: 6faa42109f3b39f4d980359124c3cb3a, type: 3}
   m_PrefabInstance: {fileID: 2095783834}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2124911378

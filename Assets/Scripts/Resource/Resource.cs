@@ -8,10 +8,9 @@ using UnityEngine.AI;
 public class Resource : MonoBehaviour
 {
     [SerializeField] private ResourceTooltipUI tooltip;
-
     [field: SerializeField] public Transform UsePoint { get; private set; }
-
     [SerializeField] private UpgradeLevel[] upgradeLevels = new UpgradeLevel[3];
+    [SerializeField] private MeshRenderer[] meshRenderers;
 
     protected float resourceFillRate;
     public int CurrentLevel { get; private set; }
@@ -54,6 +53,28 @@ public class Resource : MonoBehaviour
     public void HideTooltip()
     {
         tooltip.gameObject.SetActive(false);
+    }
+
+    public void HighlightResource()
+    {
+        foreach (MeshRenderer mesh in meshRenderers)
+        {
+            foreach (Material material in mesh.materials)
+            {
+                material.EnableKeyword("_FLASH");
+            }
+        }
+    }
+
+    public void EndHighlight()
+    {
+        foreach (MeshRenderer mesh in meshRenderers)
+        {
+            foreach (Material material in mesh.materials)
+            {
+                material.DisableKeyword("_FLASH");
+            }
+        }
     }
 
     public void TryUpgrade()

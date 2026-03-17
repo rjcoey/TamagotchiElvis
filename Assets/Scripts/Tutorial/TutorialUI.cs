@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class TutorialUI : MonoBehaviour
 {
@@ -40,16 +39,16 @@ public class TutorialUI : MonoBehaviour
             tutorialCoroutine = null;
         }
 
-        textBox.Hide();
+        textBox.HideImmediate();
         canvasFader.SetAlphaImmediate(0.0f, false);
-
+        tutorials[tutorials.Length - 1].OnTutorialFinish?.Invoke();
         TutorialEventBus.RaiseCompleteTutorial();
     }
 
     private void StartTutorial()
     {
         if (tutorialCoroutine != null) StopCoroutine(tutorialCoroutine);
-        StartCoroutine(Co_RunTutorial());
+        tutorialCoroutine = StartCoroutine(Co_RunTutorial());
     }
 
     private IEnumerator Co_RunTutorial()
@@ -59,7 +58,7 @@ public class TutorialUI : MonoBehaviour
 
         foreach (Tutorial tutorial in tutorials)
         {
-            yield return PlayDialogue(tutorial.TutorialText);
+            yield return Co_PlayDialogue(tutorial);
             yield return null;
         }
 
@@ -69,9 +68,11 @@ public class TutorialUI : MonoBehaviour
         TutorialEventBus.RaiseCompleteTutorial();
     }
 
-    private IEnumerator PlayDialogue(string text)
+    private IEnumerator Co_PlayDialogue(Tutorial tutorial)
     {
-        textBox.StartTyping(text);
+        textBox.StartTyping(tutorial.TutorialText);
+        tutorial.OnTutorialStart?.Invoke();
+
 
         while (textBox.IsTyping)
         {
@@ -87,6 +88,7 @@ public class TutorialUI : MonoBehaviour
         {
             yield return null;
         }
+        tutorial.OnTutorialFinish?.Invoke();
     }
 }
 
