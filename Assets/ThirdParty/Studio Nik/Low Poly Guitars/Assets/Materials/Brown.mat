@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Brown
-  m_Shader: {fileID: -6465566751694194690, guid: 55ee08efc1a613c4a815eccdd72d4df5, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 79d0ddc61f38c1043b07f5a96d8df9bb, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -111,6 +111,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _FLASH: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -122,6 +123,10 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Rim_Light_Falloff: 0.9
+    - _Sheen_Interval: 2.5
+    - _Sheen_Rotation: 135
+    - _Sheen_Speed: 2
+    - _Sheen_Thickness: 0.4
     - _Slope_Mask_Max: 0.6
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -137,6 +142,7 @@ Material:
     - _Color: {r: 0.5411765, g: 0.20784307, b: 0.117646985, a: 1}
     - _Diffuse: {r: 0.4528302, g: 0.31584463, b: 0.23282307, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Sheen_Color: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Specular: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

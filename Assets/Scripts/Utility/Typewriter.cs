@@ -6,10 +6,11 @@ public static class Typewriter
 {
     public static IEnumerator TypewriterEffect(TextMeshProUGUI textElement, string textToType, float typewriterSpeed = 0.02f)
     {
-        textElement.text = string.Empty;
+        textElement.text = textToType;
+        textElement.maxVisibleCharacters = 0;
         foreach (char c in textToType)
         {
-            textElement.text += c;
+            textElement.maxVisibleCharacters += 1;
             yield return new WaitForSeconds(typewriterSpeed);
         }
         // Ensure the full text is displayed at the end.

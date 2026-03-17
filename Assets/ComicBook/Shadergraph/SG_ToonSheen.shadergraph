@@ -49,7 +49,11 @@
             "m_Id": "06541f7915844ab48259d30c0369c647"
         }
     ],
-    "m_Keywords": [],
+    "m_Keywords": [
+        {
+            "m_Id": "f45068a20b3f4ae6a8da6748371142c2"
+        }
+    ],
     "m_Dropdowns": [],
     "m_CategoryData": [
         {
@@ -1944,8 +1948,8 @@
     "m_ObjectId": "0ffd1ebd42e347b18146acea2570bb01",
     "m_Title": "Final Color",
     "m_Position": {
-        "x": 224.66671752929688,
-        "y": 169.3333740234375
+        "x": 224.66668701171876,
+        "y": 169.33334350585938
     }
 }
 
@@ -4533,7 +4537,7 @@
     "m_Title": "Rim Light",
     "m_Position": {
         "x": -3068.000244140625,
-        "y": 663.3333740234375
+        "y": 663.3334350585938
     }
 }
 
@@ -5032,7 +5036,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": false,
+    "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
@@ -6596,6 +6600,9 @@
         },
         {
             "m_Id": "06541f7915844ab48259d30c0369c647"
+        },
+        {
+            "m_Id": "f45068a20b3f4ae6a8da6748371142c2"
         }
     ]
 }
@@ -7154,7 +7161,7 @@
     "m_Title": "Final Diffuse",
     "m_Position": {
         "x": -1053.3333740234375,
-        "y": -220.0
+        "y": -220.0000762939453
     }
 }
 
@@ -7663,7 +7670,7 @@
     "m_Title": "Cross Hatch",
     "m_Position": {
         "x": -3113.333251953125,
-        "y": -514.6666870117188
+        "y": -514.666748046875
     }
 }
 
@@ -9211,6 +9218,31 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.ShaderKeyword",
+    "m_ObjectId": "f45068a20b3f4ae6a8da6748371142c2",
+    "m_Guid": {
+        "m_GuidSerialized": "9983c80a-cc57-481d-8237-d3205b385fba"
+    },
+    "m_Name": "Flash?",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Flash?",
+    "m_DefaultReferenceName": "_FLASH",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_KeywordType": 0,
+    "m_KeywordDefinition": 0,
+    "m_KeywordScope": 0,
+    "m_KeywordStages": 63,
+    "m_Entries": [],
+    "m_Value": 0,
+    "m_IsEditable": true
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "f45f8b875c234e92ab7271cee0903329",
@@ -9240,8 +9272,8 @@
     "m_ObjectId": "f586a8caf2db4604a82fadc08745cfbc",
     "m_Title": "Ramping",
     "m_Position": {
-        "x": -4339.33349609375,
-        "y": -134.6666259765625
+        "x": -4339.333984375,
+        "y": -134.66671752929688
     }
 }
 
@@ -9404,8 +9436,8 @@
     "m_ObjectId": "f97e6157b79a410eb70a629b7474aa90",
     "m_Title": "Global Illumination",
     "m_Position": {
-        "x": -1287.33349609375,
-        "y": -835.9999389648438
+        "x": -1287.3336181640625,
+        "y": -836.0
     }
 }
 
