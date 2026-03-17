@@ -13,8 +13,6 @@ public class CanvasFader : MonoBehaviour
         SetAlphaImmediate(0.0f, false);
     }
 
-
-
     public void SetAlphaImmediate(float value, bool interactable)
     {
         canvasGroup.alpha = value;
