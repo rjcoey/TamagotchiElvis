@@ -115,7 +115,7 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _Cross_Hatch_Frequency: 200
+    - _Cross_Hatch_Frequency: 10
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
@@ -140,7 +140,7 @@ Material:
     - _Sheen_Speed: 2
     - _Sheen_Thickness: 0.4
     - _Slope_Mask_Max: 0.6
-    - _Smoothness: 0.2
+    - _Smoothness: 0.31
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

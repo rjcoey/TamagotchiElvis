@@ -52,6 +52,15 @@ public class TextBox : MonoBehaviour
         yield return textBoxPanel.LerpPanelPosition(rectTransform.anchoredPosition, endPosition, revealTime);
     }
 
+    public void HideImmediate()
+    {
+        StopAllCoroutines();
+        IsTyping = false;
+
+        Vector2 endPosition = new(rectTransform.anchoredPosition.x, rectTransform.sizeDelta.y);
+        rectTransform.anchoredPosition = endPosition;
+    }
+
     public IEnumerator Hide()
     {
         Vector2 endPosition = new(rectTransform.anchoredPosition.x, rectTransform.sizeDelta.y);

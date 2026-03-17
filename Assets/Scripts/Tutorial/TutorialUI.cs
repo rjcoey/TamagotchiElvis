@@ -1,15 +1,20 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class TutorialUI : MonoBehaviour
 {
+    [SerializeField] private Tutorial[] tutorials;
+
     [SerializeField] private TextBox textBox;
     [SerializeField] private UIMover hudPanel;
     [SerializeField] private float fadeInTime = 0.5f;
 
     private CanvasFader canvasFader;
     private InputAction clickAction;
+    private Coroutine tutorialCoroutine;
 
     void OnEnable()
     {
@@ -27,8 +32,23 @@ public class TutorialUI : MonoBehaviour
         clickAction = InputSystem.actions.FindAction("Click");
     }
 
-    void StartTutorial()
+    public void SkipTutorial()
     {
+        if (tutorialCoroutine != null)
+        {
+            StopCoroutine(tutorialCoroutine);
+            tutorialCoroutine = null;
+        }
+
+        textBox.Hide();
+        canvasFader.SetAlphaImmediate(0.0f, false);
+
+        TutorialEventBus.RaiseCompleteTutorial();
+    }
+
+    private void StartTutorial()
+    {
+        if (tutorialCoroutine != null) StopCoroutine(tutorialCoroutine);
         StartCoroutine(Co_RunTutorial());
     }
 
@@ -37,7 +57,11 @@ public class TutorialUI : MonoBehaviour
         yield return canvasFader.Co_FadeIn(fadeInTime);
         yield return textBox.Reveal();
 
-        yield return PlayDialogue("Listen up maggot, welcome to Tamagotchi Elvis! The all in one musician simulator game!");
+        foreach (Tutorial tutorial in tutorials)
+        {
+            yield return PlayDialogue(tutorial.TutorialText);
+            yield return null;
+        }
 
         yield return textBox.Hide();
         yield return canvasFader.Co_FadeOut(fadeInTime);
@@ -64,4 +88,12 @@ public class TutorialUI : MonoBehaviour
             yield return null;
         }
     }
+}
+
+[System.Serializable]
+public struct Tutorial
+{
+    public string TutorialText;
+    public UnityEvent OnTutorialStart;
+    public UnityEvent OnTutorialFinish;
 }
