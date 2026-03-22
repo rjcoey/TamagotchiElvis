@@ -60,6 +60,12 @@ public class GameManager : MonoBehaviour
         RequestEventBus.OnCompleteRequest -= CompleteRequest;
     }
 
+    public void TriggerGameOver(GameOverReason reason)
+    {
+        ClockEventBus.RaisePauseTimer();
+        GameEventBus.RaiseGameOver(reason);
+    }
+
     void CompleteTutorial()
     {
         GigEventBus.RaiseStartGigSelection();
@@ -103,7 +109,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void CompleteRequest()
+    private void CompleteRequest()
     {
         ClockEventBus.RaiseStartDay(daysUntilGig);
     }

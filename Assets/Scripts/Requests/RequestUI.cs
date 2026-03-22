@@ -14,7 +14,6 @@ public class RequestUI : MonoBehaviour
 
     private CanvasFader canvasFader;
     private InputAction clickAction;
-    private PlayerStats playerStats;
 
     private RequestDataSO currentRequest = null;
     private Coroutine activeRoutine;
@@ -22,13 +21,11 @@ public class RequestUI : MonoBehaviour
     void OnEnable()
     {
         RequestEventBus.OnStartRequest += StartRunRequest;
-        PlayerEventBus.OnSpawnPlayer += SetPlayerStats;
     }
 
     void OnDisable()
     {
         RequestEventBus.OnStartRequest -= StartRunRequest;
-        PlayerEventBus.OnSpawnPlayer -= SetPlayerStats;
     }
 
     void Awake()
@@ -37,10 +34,7 @@ public class RequestUI : MonoBehaviour
         clickAction = InputSystem.actions.FindAction("Click");
     }
 
-    private void SetPlayerStats(PlayerStats stats)
-    {
-        playerStats = stats;
-    }
+
 
     public void AcceptRequest()
     {
@@ -72,8 +66,8 @@ public class RequestUI : MonoBehaviour
     {
         titleText.text = "ACCEPTED";
 
-        playerStats.IncreaseStatImmediate(currentRequest.StatToIncrease, currentRequest.IncreaseAmount);
-        playerStats.DecreaseStatImmediate(currentRequest.StatToDecrease, currentRequest.DecreaseAmount);
+        // playerStats.IncreaseStatImmediate(currentRequest.StatToIncrease, currentRequest.IncreaseAmount);
+        // playerStats.DecreaseStatImmediate(currentRequest.StatToDecrease, currentRequest.DecreaseAmount);
 
         yield return UITweener.LerpElementSize(titleText.transform, Vector3.zero, Vector3.one, 0.5f, scaleCurve);
         yield return Typewriter.TypewriterEffect(bodyText, currentRequest.AcceptedText);

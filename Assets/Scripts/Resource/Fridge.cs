@@ -1,10 +1,8 @@
-using UnityEngine;
-
 public class Fridge : Resource
 {
-    public override void ApplyEffect(PlayerStats stats)
+    public override void Use()
     {
-        Eat(stats);
+        Eat();
     }
 
     public override void StopUsing()
@@ -12,13 +10,12 @@ public class Fridge : Resource
         StopEating();
     }
 
-    public void Eat(PlayerStats stats)
+    private void Eat()
     {
         if (!IsEating)
         {
             IsEating = true;
         }
-        stats.IncreaseHunger(resourceFillRate * Time.deltaTime);
     }
 
     public void StopEating()

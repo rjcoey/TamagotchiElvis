@@ -9,12 +9,13 @@ public class PlayerController : MonoBehaviour
 
     private NavMeshAgent agent;
     private Animator anim;
-    private PlayerStats playerStats;
     private Camera mainCamera;
     private InputAction pointAction;
     private InputAction clickAction;
 
     private Resource currentResource;
+
+    private bool active = false;
 
     void OnEnable()
     {
@@ -38,9 +39,6 @@ public class PlayerController : MonoBehaviour
         PlayerEventBus.OnUseButtonClicked += HandleUseButtonClicked;
 
         GameEventBus.OnGameOver -= GameOver;
-
-        // pointAction?.Disable();
-        // clickAction?.Disable();
     }
 
     void Awake()
@@ -48,7 +46,6 @@ public class PlayerController : MonoBehaviour
         mainCamera = Camera.main;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        playerStats = GetComponent<PlayerStats>();
         pointAction = InputSystem.actions.FindAction("Point");
         clickAction = InputSystem.actions.FindAction("Click");
 
@@ -56,8 +53,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!playerStats.IsGameRunning) return;
-
+        if (!active) return;
         if (clickAction == null || pointAction == null) return;
 
         Vector2 screenPosition = pointAction.ReadValue<Vector2>();
@@ -95,12 +91,9 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (currentResource != null)
+        if (currentResource != null && Vector2.Distance(currentResource.UsePoint.position, transform.position) < 0.5f)
         {
-            if (Vector3.Distance(transform.position, currentResource.UsePoint.position) < 0.1f)
-            {
-                currentResource.ApplyEffect(playerStats);
-            }
+            currentResource.Use();
         }
 
         if (agent.hasPath || agent.remainingDistance > agent.stoppingDistance)
@@ -116,6 +109,7 @@ public class PlayerController : MonoBehaviour
     private void EnablePlayerControl()
     {
         agent.isStopped = false;
+        active = true;
     }
 
     private void DisablePlayerControl()
@@ -123,6 +117,7 @@ public class PlayerController : MonoBehaviour
         agent.ResetPath();
         agent.isStopped = true;
         currentResource = null;
+        active = false;
     }
 
     private void HandleUseButtonClicked(Resource resource)

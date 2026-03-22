@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Guitar : Resource
 {
-    public override void ApplyEffect(PlayerStats stats)
+    public override void Use()
     {
-        PractiseGuitar(stats);
+        Practise();
     }
 
     public override void StopUsing()
@@ -12,13 +12,12 @@ public class Guitar : Resource
         StopPractising();
     }
 
-    private void PractiseGuitar(PlayerStats stats)
+    private void Practise()
     {
         if (!IsPractising)
         {
             IsPractising = true;
         }
-        stats.IncreaseTalent(resourceFillRate * Time.deltaTime);
     }
 
     private void StopPractising()

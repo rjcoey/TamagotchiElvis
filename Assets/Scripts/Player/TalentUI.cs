@@ -5,25 +5,19 @@ public class TalentUI : MonoBehaviour
 {
     [SerializeField] private Image talentFill;
 
+
     void OnEnable()
     {
-        PlayerEventBus.OnTalentIncreased += IncreaseTalentUI;
-        PlayerEventBus.OnTalentDecreased += DecreaseTalentUI;
+        PlayerEventBus.OnTalentUpdated += UpdateTalentUI;
     }
 
     void OnDisable()
     {
-        PlayerEventBus.OnTalentIncreased -= IncreaseTalentUI;
-        PlayerEventBus.OnTalentDecreased -= DecreaseTalentUI;
+        PlayerEventBus.OnTalentUpdated -= UpdateTalentUI;
     }
 
-    private void IncreaseTalentUI(float newFill, bool playFeedback)
+    private void UpdateTalentUI(float currentTalent, float maxTalent)
     {
-        talentFill.fillAmount = newFill;
-    }
-
-    private void DecreaseTalentUI(float newFill, bool playFeedback)
-    {
-        talentFill.fillAmount = newFill;
+        talentFill.fillAmount = currentTalent / maxTalent;
     }
 }

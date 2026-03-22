@@ -1,6 +1,5 @@
 using UnityEngine.UI;
 using UnityEngine;
-using System;
 
 public class HappinessUI : MonoBehaviour
 {
@@ -8,23 +7,16 @@ public class HappinessUI : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerEventBus.OnHappinessIncreased += IncreaseHappinessUI;
-        PlayerEventBus.OnHappinessDecreased += DecreaseHappinessUI;
+        PlayerEventBus.OnHappinessUpdated += UpdateHappinessUI;
     }
 
     void OnDisable()
     {
-        PlayerEventBus.OnHappinessIncreased -= IncreaseHappinessUI;
-        PlayerEventBus.OnHappinessDecreased -= DecreaseHappinessUI;
+        PlayerEventBus.OnHappinessUpdated -= UpdateHappinessUI;
     }
 
-    private void IncreaseHappinessUI(float newFill, bool playFeedback)
+    private void UpdateHappinessUI(float currentHappiness, float maxHappiness)
     {
-        happinessFill.fillAmount = newFill;
-    }
-
-    private void DecreaseHappinessUI(float newFill, bool playFeedback)
-    {
-        happinessFill.fillAmount = newFill;
+        happinessFill.fillAmount = currentHappiness / maxHappiness;
     }
 }

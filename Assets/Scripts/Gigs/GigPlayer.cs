@@ -29,19 +29,16 @@ public class GigPlayer : MonoBehaviour
     [SerializeField] private float typewriterSpeed = 0.05f;
 
     private CanvasFader canvasFader;
-    private PlayerStats playerStats;
     private InputAction clickAction;
 
     void OnEnable()
     {
-        PlayerEventBus.OnSpawnPlayer += SetPlayerStats;
         GigEventBus.OnPlayGig += StartRunGig;
     }
 
     void OnDisable()
     {
         // Unsubscribe from events to prevent memory leaks and errors.
-        PlayerEventBus.OnSpawnPlayer -= SetPlayerStats; // Corrected from += to -=
         GigEventBus.OnPlayGig -= StartRunGig;
     }
 
@@ -49,11 +46,6 @@ public class GigPlayer : MonoBehaviour
     {
         canvasFader = GetComponent<CanvasFader>();
         clickAction = InputSystem.actions.FindAction("Click");
-    }
-
-    void SetPlayerStats(PlayerStats playerStats)
-    {
-        this.playerStats = playerStats;
     }
 
     /// <summary>
@@ -80,14 +72,11 @@ public class GigPlayer : MonoBehaviour
     private float CalculateGigScore(GigDataSO gigData)
     {
         // Get player stats (normalized between 0 and 1).
-        float hunger = playerStats.GetHungerScore;
-        float happiness = playerStats.GetHappinessScore;
-        float talent = playerStats.GetTalentScore;
+
         // Add a random performance factor based on a curve.
-        float performance = playerStats.PerformanceCurve.Evaluate(Random.value);
 
         // Average the stats to get a raw performance value.
-        float rawGigScore = (hunger + happiness + talent + performance) / 4.0f;
+        float rawGigScore = 1.0f;
         // Apply the gig's specific difficulty curve to get the final score.
         float finalScore = gigData.GigDifficultyCurve.Evaluate(rawGigScore);
         return finalScore;
@@ -125,8 +114,7 @@ public class GigPlayer : MonoBehaviour
         int fans = Mathf.RoundToInt(gigData.BaseGigFans * gigScore);
         yield return CountToNumber(fansText, fans, 1.0f, "+");
 
-        playerStats.AdjustFans(fans);
-        playerStats.IncreaseCash(cash);
+        // playerStats.IncreaseCash(cash);
 
         yield return FadeInstruction(0, 1, 0.2f);
         yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());

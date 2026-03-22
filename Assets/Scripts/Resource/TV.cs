@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class TV : Resource
 {
-    public override void ApplyEffect(PlayerStats stats)
+    public override void Use()
     {
-        WatchTV(stats);
+        WatchTV();
     }
 
     public override void StopUsing()
@@ -12,13 +12,12 @@ public class TV : Resource
         StopWatchingTV();
     }
 
-    private void WatchTV(PlayerStats stats)
+    private void WatchTV()
     {
         if (!IsHappy)
         {
             IsHappy = true;
         }
-        stats.IncreaseHappiness(resourceFillRate * Time.deltaTime);
     }
 
     private void StopWatchingTV()

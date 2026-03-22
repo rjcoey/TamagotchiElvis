@@ -7,23 +7,16 @@ public class HungerUI : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerEventBus.OnHungerIncreased += IncreaseHungerUI;
-        PlayerEventBus.OnHungerDecreased += DecreaseHungerUI;
+        PlayerEventBus.OnHungerUpdated += UpdateHungerUI;
     }
 
     void OnDisable()
     {
-        PlayerEventBus.OnHungerIncreased -= IncreaseHungerUI;
-        PlayerEventBus.OnHungerDecreased -= DecreaseHungerUI;
+        PlayerEventBus.OnHungerUpdated -= UpdateHungerUI;
     }
 
-    private void IncreaseHungerUI(float newFill, bool playFeedback)
+    private void UpdateHungerUI(float currentHunger, float maxHunger)
     {
-        hungerFill.fillAmount = newFill;
-    }
-
-    private void DecreaseHungerUI(float newFill, bool playFeedback)
-    {
-        hungerFill.fillAmount = newFill;
+        hungerFill.fillAmount = currentHunger / maxHunger;
     }
 }

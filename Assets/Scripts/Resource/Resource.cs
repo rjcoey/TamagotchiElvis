@@ -20,18 +20,6 @@ public class Resource : MonoBehaviour
     public static bool IsHappy = false;
     public static bool IsPractising = false;
 
-    private PlayerStats playerStats;
-
-    void OnEnable()
-    {
-        PlayerEventBus.OnSpawnPlayer += SetPlayerStats;
-    }
-
-    void OnDisable()
-    {
-        PlayerEventBus.OnSpawnPlayer -= SetPlayerStats;
-    }
-
     void Awake()
     {
         if (upgradeLevels.Length > 0)
@@ -40,7 +28,7 @@ public class Resource : MonoBehaviour
         }
     }
 
-    public virtual void ApplyEffect(PlayerStats stats) { }
+    public virtual void Use() { }
 
     public virtual void StopUsing() { }
 
@@ -79,16 +67,10 @@ public class Resource : MonoBehaviour
 
     public void TryUpgrade()
     {
-        if (playerStats.CurrentCash < UpgradeCost) return;
         if (CurrentLevel >= upgradeLevels.Length - 1) return;
-        playerStats.DecreaseCash(UpgradeCost);
+        // playerStats.DecreaseCash(UpgradeCost);
         CurrentLevel++;
         tooltip.InitTooltip(this);
-    }
-
-    void SetPlayerStats(PlayerStats playerStats)
-    {
-        this.playerStats = playerStats;
     }
 }
 
