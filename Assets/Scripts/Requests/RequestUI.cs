@@ -16,7 +16,6 @@ public class RequestUI : MonoBehaviour
     private InputAction clickAction;
 
     private RequestDataSO currentRequest = null;
-    private Coroutine activeRoutine;
 
     void OnEnable()
     {
@@ -34,14 +33,12 @@ public class RequestUI : MonoBehaviour
         clickAction = InputSystem.actions.FindAction("Click");
     }
 
-
-
     public void AcceptRequest()
     {
         titleText.transform.localScale = Vector3.zero;
         bodyText.text = string.Empty;
         buttonsObject.SetActive(false);
-        activeRoutine = StartCoroutine(Co_AcceptRequest());
+        StartCoroutine(Co_AcceptRequest());
     }
 
     public void DeclineRequest()
@@ -49,7 +46,7 @@ public class RequestUI : MonoBehaviour
         titleText.transform.localScale = Vector3.zero;
         bodyText.text = string.Empty;
         buttonsObject.SetActive(false);
-        activeRoutine = StartCoroutine(Co_DeclineRequest());
+        StartCoroutine(Co_DeclineRequest());
     }
 
     private void StartRunRequest(RequestDataSO request)
