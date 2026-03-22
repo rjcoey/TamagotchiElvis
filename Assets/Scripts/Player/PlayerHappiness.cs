@@ -1,9 +1,10 @@
 
 public class PlayerHappiness : PlayerStat
 {
-    void Update()
+    protected override void Update()
     {
         if (!active) return;
+        base.Update();
 
         if (Resource.IsHappy)
         {

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: m_healthEffect
+  m_Name: m_talenthealthEffect
   m_Shader: {fileID: -6465566751694194690, guid: b1d7978be79f6c04d96b1eb4b78aaf09, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -37,11 +37,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Vignette_Length: 1.5
-    - _Vignette_Power: 3.15
+    - _Interval: 3
+    - _Offset: 0
+    - _Vignette_Length: 1.436
+    - _Vignette_Power: 8.41
     - _Voironoi_Power: 1
+    - _Voronoi_Density: 2
     - _Voronoi_Speed: 2
     m_Colors:
-    - _Voronoi_Color: {r: 0.8332324, g: 2, b: 0, a: 0}
+    - _Voronoi_Color: {r: 1.5137256, g: 1.0196079, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
