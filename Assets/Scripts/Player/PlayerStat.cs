@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerStat : MonoBehaviour
 {
@@ -6,14 +7,18 @@ public class PlayerStat : MonoBehaviour
     [SerializeField] private float valueDecayRate = 0.5f;
     [SerializeField] private float valueIncreaseRate = 5.0f;
     [SerializeField] protected float maxValue = 100.0f;
-    [SerializeField][Range(0, 1)] protected float upperHealthEventThreshold;
+
+    [SerializeField][Range(0, 1)] protected float lowerHealthEventThreshold = 0.1f;
+    [SerializeField][Range(0, 1)] protected float upperHealthEventThreshold = 0.9f;
+
+    [SerializeField] ScriptableRendererFeature healthEffect;
 
     [SerializeField] protected GameOverReason fullReason;
     [SerializeField] protected GameOverReason emptyReason;
 
     protected float currentValue;
     protected bool active = false;
-    private static bool healthEventActive = false;
+    private bool healthEventActive = false;
 
     void OnEnable()
     {
@@ -35,13 +40,14 @@ public class PlayerStat : MonoBehaviour
     private void ResetStat()
     {
         currentValue = startValue;
+        healthEffect.SetActive(false);
     }
 
     protected virtual void Update()
     {
-        if (healthEventActive && currentValue > 0.1f * maxValue && currentValue < 0.9f * maxValue)
+        if (healthEventActive && currentValue > lowerHealthEventThreshold * maxValue && currentValue < upperHealthEventThreshold * maxValue)
         {
-            PlayerEventBus.RaiseEndHealthEvent();
+            healthEffect.SetActive(false);
             healthEventActive = false;
         }
     }
@@ -50,9 +56,9 @@ public class PlayerStat : MonoBehaviour
     {
         currentValue = Mathf.Min(maxValue, currentValue + valueIncreaseRate * Time.deltaTime);
 
-        if (!healthEventActive && currentValue > 0.9f * maxValue)
+        if (!healthEventActive && currentValue > upperHealthEventThreshold * maxValue)
         {
-            PlayerEventBus.RaiseStartHealthEvent();
+            healthEffect.SetActive(true);
             healthEventActive = true;
         }
 
@@ -66,9 +72,10 @@ public class PlayerStat : MonoBehaviour
     {
         currentValue = Mathf.Max(0.0f, currentValue - valueDecayRate * Time.deltaTime);
 
-        if (currentValue < 0.1f * maxValue)
+        if (currentValue < lowerHealthEventThreshold * maxValue)
         {
-            PlayerEventBus.RaiseStartHealthEvent();
+            healthEffect.SetActive(true);
+            healthEventActive = true;
         }
 
         if (currentValue <= 0)

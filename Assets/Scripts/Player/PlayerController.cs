@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         PlayerEventBus.OnEnablePlayer -= EnablePlayerControl;
         ClockEventBus.OnDayComplete -= DisablePlayerControl;
 
-        PlayerEventBus.OnUseButtonClicked += HandleUseButtonClicked;
+        PlayerEventBus.OnUseButtonClicked -= HandleUseButtonClicked;
 
         GameEventBus.OnGameOver -= GameOver;
     }
@@ -116,6 +116,7 @@ public class PlayerController : MonoBehaviour
     {
         agent.ResetPath();
         agent.isStopped = true;
+        currentResource?.StopUsing();
         currentResource = null;
         active = false;
     }

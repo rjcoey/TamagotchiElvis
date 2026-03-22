@@ -16,12 +16,6 @@ public class PlayerEventBus
     public static event Action<float, float> OnTalentUpdated;
     public static void RaiseTalentUpdated(float currentTalent, float maxTalent) => OnTalentUpdated?.Invoke(currentTalent, maxTalent);
 
-    public static event Action OnStartHealthEvent;
-    public static void RaiseStartHealthEvent() => OnStartHealthEvent?.Invoke();
-
-    public static event Action OnEndHealthEvent;
-    public static void RaiseEndHealthEvent() => OnEndHealthEvent?.Invoke();
-
     public static event Action OnEnablePlayer;
     public static void RaiseEnablePlayer() => OnEnablePlayer?.Invoke();
 

@@ -28,8 +28,8 @@ public class CanvasFader : MonoBehaviour
 
     public IEnumerator Co_FadeOut(float fadeDuration = .5f)
     {
-        yield return Co_RunFade(1, 0, fadeDuration);
         canvasGroup.interactable = false;
+        yield return Co_RunFade(1, 0, fadeDuration);
         canvasGroup.blocksRaycasts = false;
     }
 

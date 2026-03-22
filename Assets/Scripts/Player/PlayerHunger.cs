@@ -1,11 +1,5 @@
-
-using UnityEngine;
-using UnityEngine.Rendering.Universal;
-
 public class PlayerHunger : PlayerStat
 {
-    [SerializeField] ScriptableRendererFeature hungerHealthEffect;
-
     protected override void Update()
     {
         if (!active) return;

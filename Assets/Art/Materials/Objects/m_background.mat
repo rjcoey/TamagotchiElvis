@@ -219,7 +219,7 @@ Material:
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _CoatMask: 0
-    - _Cross_Hatch_Frequency: 5
+    - _Cross_Hatch_Frequency: 1
     - _Cull: 2
     - _CullMode: 2
     - _CullModeForward: 2
@@ -317,7 +317,7 @@ Material:
     - _ShiverDirectionality: 0.5
     - _ShiverDrag: 0.2
     - _Slope_Mask_Max: 0.6
-    - _Smoothness: 0
+    - _Smoothness: 1
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
     - _SmoothnessTextureChannel: 0
