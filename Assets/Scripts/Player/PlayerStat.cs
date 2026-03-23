@@ -3,6 +3,7 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerStat : MonoBehaviour
 {
+    [field: SerializeField] public StatName StatName { get; private set; }
     [SerializeField] private float startValue = 50.0f;
     [SerializeField] private float valueDecayRate = 0.5f;
     [SerializeField] private float valueIncreaseRate = 5.0f;
@@ -52,33 +53,48 @@ public class PlayerStat : MonoBehaviour
         }
     }
 
-    protected virtual void IncreaseStat()
+    public virtual void AdjustStat(float delta)
+    {
+        currentValue = Mathf.Clamp(currentValue + delta, 0.0f, maxValue);
+        HandleHealthEvent();
+        HandleGameOver();
+    }
+
+    protected virtual void ImproveStat()
     {
         currentValue = Mathf.Min(maxValue, currentValue + valueIncreaseRate * Time.deltaTime);
-
-        if (!healthEventActive && currentValue > upperHealthEventThreshold * maxValue)
-        {
-            healthEffect.SetActive(true);
-            healthEventActive = true;
-        }
-
-        if (currentValue >= maxValue)
-        {
-            GameManager.Instance.TriggerGameOver(fullReason);
-        }
+        HandleHealthEvent();
+        HandleGameOver();
     }
 
     protected virtual void DecayStat()
     {
         currentValue = Mathf.Max(0.0f, currentValue - valueDecayRate * Time.deltaTime);
+        HandleHealthEvent();
+        HandleGameOver();
+    }
 
-        if (currentValue < lowerHealthEventThreshold * maxValue)
+    private void HandleHealthEvent()
+    {
+        if (!healthEventActive && currentValue > upperHealthEventThreshold * maxValue)
         {
             healthEffect.SetActive(true);
             healthEventActive = true;
         }
+        else if (currentValue < lowerHealthEventThreshold * maxValue)
+        {
+            healthEffect.SetActive(true);
+            healthEventActive = true;
+        }
+    }
 
-        if (currentValue <= 0)
+    private void HandleGameOver()
+    {
+        if (currentValue >= maxValue)
+        {
+            GameManager.Instance.TriggerGameOver(fullReason);
+        }
+        else if (currentValue <= 0)
         {
             GameManager.Instance.TriggerGameOver(emptyReason);
         }

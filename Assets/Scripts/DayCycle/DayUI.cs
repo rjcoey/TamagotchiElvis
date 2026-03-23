@@ -36,6 +36,8 @@ public class DayUI : MonoBehaviour
 
     private IEnumerator RunDayUI(int daysUntilGig)
     {
+        PlayerEventBus.RaiseHideHUD();
+
         dayText.text = daysUntilGig.ToString();
 
         yield return canvasFader.Co_FadeIn(fadeInDuration);
@@ -44,5 +46,6 @@ public class DayUI : MonoBehaviour
 
         ClockEventBus.RaiseResumeTimer();
         PlayerEventBus.RaiseEnablePlayer();
+        PlayerEventBus.RaiseShowHUD();
     }
 }

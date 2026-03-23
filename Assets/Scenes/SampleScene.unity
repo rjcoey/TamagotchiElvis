@@ -2736,6 +2736,7 @@ MonoBehaviour:
   titleText: {fileID: 1133075307}
   bodyText: {fileID: 487301227}
   buttonsObject: {fileID: 1312365562}
+  playerStats: {fileID: 1635011746}
 --- !u!1 &578916852
 GameObject:
   m_ObjectHideFlags: 0
@@ -9424,6 +9425,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1610193642}
   m_CullTransparentMesh: 1
+--- !u!114 &1635011746 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6538604786197094940, guid: 343064e720456bf4b879c308310ad7c9, type: 3}
+  m_PrefabInstance: {fileID: 2712526383997026610}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c2e350097bf4db4193e1f243c732266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1643854870
 GameObject:
   m_ObjectHideFlags: 0
@@ -10030,7 +10042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbfbf2cacb5fd4a4595ce5f58b489364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  realTimeDuration: 60
+  realTimeDuration: 15
   dayDuration: 16
   dayStartTime: 8
 --- !u!1 &1757486544
@@ -11324,22 +11336,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2874280010687163838, guid: 343064e720456bf4b879c308310ad7c9, type: 3}
-      propertyPath: healthEffect
-      value: 
-      objectReference: {fileID: 5700237840816233105, guid: 154591901e5f39244a7b7f2cb2f27541, type: 2}
-    - target: {fileID: 4253920424993250503, guid: 343064e720456bf4b879c308310ad7c9, type: 3}
-      propertyPath: healthEffect
-      value: 
-      objectReference: {fileID: -4468479212142987139, guid: 154591901e5f39244a7b7f2cb2f27541, type: 2}
     - target: {fileID: 5575342187263404306, guid: 343064e720456bf4b879c308310ad7c9, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8956200854990120578, guid: 343064e720456bf4b879c308310ad7c9, type: 3}
-      propertyPath: healthEffect
-      value: 
-      objectReference: {fileID: 8953989691276693367, guid: 154591901e5f39244a7b7f2cb2f27541, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

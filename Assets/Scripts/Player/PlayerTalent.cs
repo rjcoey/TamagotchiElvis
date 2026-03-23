@@ -8,7 +8,7 @@ public class PlayerTalent : PlayerStat
 
         if (Resource.IsPractising)
         {
-            IncreaseStat();
+            ImproveStat();
         }
         else
         {
@@ -16,9 +16,9 @@ public class PlayerTalent : PlayerStat
         }
     }
 
-    protected override void IncreaseStat()
+    protected override void ImproveStat()
     {
-        base.IncreaseStat();
+        base.ImproveStat();
         PlayerEventBus.RaiseTalentUpdated(currentValue, maxValue);
     }
 

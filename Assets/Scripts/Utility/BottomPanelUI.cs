@@ -10,14 +10,14 @@ public class BottomPanelUI : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerEventBus.OnEnablePlayer += RevealBottomPanel;
-        PlayerEventBus.OnDisablePlayer += HideBottomPanel;
+        PlayerEventBus.OnShowHUD += RevealBottomPanel;
+        PlayerEventBus.OnHideHUD += HideBottomPanel;
     }
 
     void OnDisable()
     {
-        PlayerEventBus.OnEnablePlayer -= RevealBottomPanel;
-        PlayerEventBus.OnDisablePlayer -= HideBottomPanel;
+        PlayerEventBus.OnShowHUD -= RevealBottomPanel;
+        PlayerEventBus.OnHideHUD -= HideBottomPanel;
     }
 
     void Awake()

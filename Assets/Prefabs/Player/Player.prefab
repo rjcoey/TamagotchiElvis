@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4253920424993250503}
   - component: {fileID: 2874280010687163838}
   - component: {fileID: 8956200854990120578}
+  - component: {fileID: 6538604786197094940}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -159,10 +160,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e31fa7358500154b815234f6e22b92f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <StatName>k__BackingField: 1
   startValue: 50
   valueDecayRate: 0.5
   valueIncreaseRate: 5
   maxValue: 100
+  lowerHealthEventThreshold: 0.1
+  upperHealthEventThreshold: 0.9
+  healthEffect: {fileID: -4468479212142987139, guid: 154591901e5f39244a7b7f2cb2f27541, type: 2}
   fullReason: 0
   emptyReason: 1
 --- !u!114 &2874280010687163838
@@ -177,10 +182,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5e066246e92db54ea03e742a76f11e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <StatName>k__BackingField: 2
   startValue: 50
   valueDecayRate: 0.5
   valueIncreaseRate: 5
   maxValue: 100
+  lowerHealthEventThreshold: 0.1
+  upperHealthEventThreshold: 0.9
+  healthEffect: {fileID: 5700237840816233105, guid: 154591901e5f39244a7b7f2cb2f27541, type: 2}
   fullReason: 2
   emptyReason: 3
 --- !u!114 &8956200854990120578
@@ -195,12 +204,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eddc150371749c4a87b132e71b1fe70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <StatName>k__BackingField: 3
   startValue: 50
   valueDecayRate: 0.5
   valueIncreaseRate: 5
   maxValue: 100
+  lowerHealthEventThreshold: 0.1
+  upperHealthEventThreshold: 0.9
+  healthEffect: {fileID: 8953989691276693367, guid: 154591901e5f39244a7b7f2cb2f27541, type: 2}
   fullReason: 4
   emptyReason: 5
+--- !u!114 &6538604786197094940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5575342187263404306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c2e350097bf4db4193e1f243c732266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7358134590950433724
 GameObject:
   m_ObjectHideFlags: 0

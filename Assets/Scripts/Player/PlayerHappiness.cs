@@ -8,7 +8,7 @@ public class PlayerHappiness : PlayerStat
 
         if (Resource.IsHappy)
         {
-            IncreaseStat();
+            ImproveStat();
         }
         else
         {
@@ -16,9 +16,9 @@ public class PlayerHappiness : PlayerStat
         }
     }
 
-    protected override void IncreaseStat()
+    protected override void ImproveStat()
     {
-        base.IncreaseStat();
+        base.ImproveStat();
         PlayerEventBus.RaiseHappinessUpdated(currentValue, maxValue);
     }
 

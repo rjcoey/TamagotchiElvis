@@ -22,6 +22,12 @@ public class PlayerEventBus
     public static event Action OnDisablePlayer;
     public static void RaiseDisablePlayer() => OnDisablePlayer?.Invoke();
 
+    public static event Action OnHideHUD;
+    public static void RaiseHideHUD() => OnHideHUD?.Invoke();
+
+    public static event Action OnShowHUD;
+    public static void RaiseShowHUD() => OnShowHUD.Invoke();
+
     public static event Action<Resource> OnUseButtonClicked;
     public static void RaiseUseButtonClicked(Resource resource) => OnUseButtonClicked?.Invoke(resource);
 }

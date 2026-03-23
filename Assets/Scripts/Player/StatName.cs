@@ -1,4 +1,4 @@
-public enum STAT
+public enum StatName
 {
     NULL,
     HUNGER,

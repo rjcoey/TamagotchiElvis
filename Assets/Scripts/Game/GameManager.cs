@@ -72,16 +72,16 @@ public class GameManager : MonoBehaviour
         hasPlayedTutorial = true;
     }
 
-    void CompleteGig()
-    {
-        GigEventBus.RaiseStartGigSelection();
-    }
-
     void SelectGig(GigDataSO gigData)
     {
         CurrentGig = gigData;
         daysUntilGig = gigData.DaysUntilGig;
         ClockEventBus.RaiseStartDay(daysUntilGig);
+    }
+
+    void CompleteGig()
+    {
+        GigEventBus.RaiseStartGigSelection();
     }
 
     void CompleteDay()

@@ -7,7 +7,7 @@ public class PlayerHunger : PlayerStat
 
         if (Resource.IsEating)
         {
-            IncreaseStat();
+            ImproveStat();
         }
         else
         {
@@ -15,9 +15,9 @@ public class PlayerHunger : PlayerStat
         }
     }
 
-    protected override void IncreaseStat()
+    protected override void ImproveStat()
     {
-        base.IncreaseStat();
+        base.ImproveStat();
         PlayerEventBus.RaiseHungerUpdated(currentValue, maxValue);
     }
 

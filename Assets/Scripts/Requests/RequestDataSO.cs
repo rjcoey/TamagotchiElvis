@@ -8,9 +8,9 @@ public class RequestDataSO : ScriptableObject
     [field: SerializeField][TextArea] public string AcceptedText { get; private set; }
     [field: SerializeField][TextArea] public string RejectedText { get; private set; }
 
-    [field: SerializeField] public STAT StatToIncrease { get; private set; }
+    [field: SerializeField] public StatName StatToIncrease { get; private set; }
     [field: SerializeField] public float IncreaseAmount { get; private set; }
-    [field: SerializeField] public STAT StatToDecrease { get; private set; }
+    [field: SerializeField] public StatName StatToDecrease { get; private set; }
     [field: SerializeField] public float DecreaseAmount { get; private set; }
 
     public void Initialise(string requestName, string setupText, string acceptedText, string rejectedText, string increasedStat, float increaseAmount, string decreasedStat, float decreaseAmount)
@@ -23,22 +23,22 @@ public class RequestDataSO : ScriptableObject
         switch (increasedStat)
         {
             case "HUNGER":
-                StatToIncrease = STAT.HUNGER;
+                StatToIncrease = StatName.HUNGER;
                 break;
             case "HAPPINESS":
-                StatToIncrease = STAT.HAPPINESS;
+                StatToIncrease = StatName.HAPPINESS;
                 break;
             case "TALENT":
-                StatToIncrease = STAT.TALENT;
+                StatToIncrease = StatName.TALENT;
                 break;
             case "FANS":
-                StatToIncrease = STAT.FANS;
+                StatToIncrease = StatName.FANS;
                 break;
             case "CASH":
-                StatToIncrease = STAT.CASH;
+                StatToIncrease = StatName.CASH;
                 break;
             default:
-                StatToIncrease = STAT.NULL;
+                StatToIncrease = StatName.NULL;
                 break;
         }
 
@@ -48,22 +48,22 @@ public class RequestDataSO : ScriptableObject
         switch (decreasedStat)
         {
             case "HUNGER":
-                StatToDecrease = STAT.HUNGER;
+                StatToDecrease = StatName.HUNGER;
                 break;
             case "HAPPINESS":
-                StatToDecrease = STAT.HAPPINESS;
+                StatToDecrease = StatName.HAPPINESS;
                 break;
             case "TALENT":
-                StatToDecrease = STAT.TALENT;
+                StatToDecrease = StatName.TALENT;
                 break;
             case "FANS":
-                StatToDecrease = STAT.FANS;
+                StatToDecrease = StatName.FANS;
                 break;
             case "CASH":
-                StatToDecrease = STAT.CASH;
+                StatToDecrease = StatName.CASH;
                 break;
             default:
-                StatToDecrease = STAT.NULL;
+                StatToDecrease = StatName.NULL;
                 break;
         }
 

@@ -12,6 +12,8 @@ public class RequestUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bodyText;
     [SerializeField] private GameObject buttonsObject;
 
+    [SerializeField] private PlayerStatController playerStats;
+
     private CanvasFader canvasFader;
     private InputAction clickAction;
 
@@ -63,8 +65,8 @@ public class RequestUI : MonoBehaviour
     {
         titleText.text = "ACCEPTED";
 
-        // playerStats.IncreaseStatImmediate(currentRequest.StatToIncrease, currentRequest.IncreaseAmount);
-        // playerStats.DecreaseStatImmediate(currentRequest.StatToDecrease, currentRequest.DecreaseAmount);
+        playerStats.AdjustStat(currentRequest.StatToIncrease, currentRequest.IncreaseAmount);
+        playerStats.AdjustStat(currentRequest.StatToDecrease, currentRequest.DecreaseAmount);
 
         yield return UITweener.LerpElementSize(titleText.transform, Vector3.zero, Vector3.one, 0.5f, scaleCurve);
         yield return Typewriter.TypewriterEffect(bodyText, currentRequest.AcceptedText);
@@ -78,8 +80,10 @@ public class RequestUI : MonoBehaviour
     private IEnumerator Co_DeclineRequest()
     {
         titleText.text = "DECLINED";
+
         yield return UITweener.LerpElementSize(titleText.transform, Vector3.zero, Vector3.one, 0.5f, scaleCurve);
         yield return Typewriter.TypewriterEffect(bodyText, currentRequest.RejectedText);
+
         yield return new WaitUntil(() => clickAction.WasCompletedThisFrame());
         yield return canvasFader.Co_FadeOut(fadeDuration);
         currentRequest = null;
