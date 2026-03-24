@@ -3,13 +3,14 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// Manages the entire UI sequence for playing a gig, from the intro animation to displaying the results.
 /// </summary>
 public class GigPlayer : MonoBehaviour
 {
+    [SerializeField] private PlayerStatController playerStats;
+
     [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private Transform reviewLabel;
@@ -18,6 +19,7 @@ public class GigPlayer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI cashText;
     [SerializeField] private TextMeshProUGUI fansText;
     [SerializeField] private TextMeshProUGUI instructionText;
+    [SerializeField] private AnimationCurve performanceCurve;
 
     [Header("Animation Curves")]
     [Tooltip("Curve for the bouncy scale animation of UI elements.")]
@@ -72,13 +74,19 @@ public class GigPlayer : MonoBehaviour
     private float CalculateGigScore(GigDataSO gigData)
     {
         // Get player stats (normalized between 0 and 1).
+        float hungerScore = playerStats.GetStatScore(StatName.HUNGER);
+        float happinessScore = playerStats.GetStatScore(StatName.HAPPINESS);
+        float talentScore = playerStats.GetStatScore(StatName.TALENT);
 
         // Add a random performance factor based on a curve.
+        float performanceScore = performanceCurve.Evaluate(Random.value);
 
         // Average the stats to get a raw performance value.
-        float rawGigScore = 1.0f;
+        float rawGigScore = (hungerScore + happinessScore + talentScore + performanceScore) / 4.0f;
+
         // Apply the gig's specific difficulty curve to get the final score.
         float finalScore = gigData.GigDifficultyCurve.Evaluate(rawGigScore);
+        Debug.Log($"Score: {finalScore}.");
         return finalScore;
     }
 
@@ -114,7 +122,8 @@ public class GigPlayer : MonoBehaviour
         int fans = Mathf.RoundToInt(gigData.BaseGigFans * gigScore);
         yield return CountToNumber(fansText, fans, 1.0f, "+");
 
-        // playerStats.IncreaseCash(cash);
+        playerStats.AdjustStat(StatName.CASH, cash);
+        playerStats.AdjustStat(StatName.FANS, fans);
 
         yield return FadeInstruction(0, 1, 0.2f);
         yield return new WaitUntil(() => clickAction.WasPerformedThisFrame());

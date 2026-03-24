@@ -1086,6 +1086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f2ccaf5fa2ab343a0fd7b5e627aafe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statName: 2
   tooltip: {fileID: 807118278}
   <UsePoint>k__BackingField: {fileID: 910319642}
   upgradeLevels:
@@ -2989,7 +2990,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.5
+  m_fontSize: 39.55
   m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3521,6 +3522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47d44120f76a3734893b4ec45fddf7b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statName: 1
   tooltip: {fileID: 807118278}
   <UsePoint>k__BackingField: {fileID: 1266487936}
   upgradeLevels:
@@ -8877,7 +8879,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 63.8
+  m_fontSize: 63.85
   m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9256,6 +9258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33153d8b688a98f45b00a8e8c9b0eb73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statName: 3
   tooltip: {fileID: 807118278}
   <UsePoint>k__BackingField: {fileID: 318156592}
   upgradeLevels:
@@ -9767,6 +9770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c5cb9c4f155121479c57f3e12b691dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStats: {fileID: 1635011746}
   titleText: {fileID: 1564855624}
   reviewLabel: {fileID: 662903027}
   starsText: {fileID: 370022277}
@@ -9774,6 +9778,30 @@ MonoBehaviour:
   cashText: {fileID: 1164007360}
   fansText: {fileID: 58238357}
   instructionText: {fileID: 1521203489}
+  performanceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   scaleCurve:
     serializedVersion: 2
     m_Curve:
@@ -10042,7 +10070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbfbf2cacb5fd4a4595ce5f58b489364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  realTimeDuration: 15
+  realTimeDuration: 240
   dayDuration: 16
   dayStartTime: 8
 --- !u!1 &1757486544

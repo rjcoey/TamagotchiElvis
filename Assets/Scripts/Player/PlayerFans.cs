@@ -1,16 +1,14 @@
-using UnityEngine;
-
-public class PlayerFans : MonoBehaviour
+public class PlayerFans : PlayerStat
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
-
+        base.Start();
+        PlayerEventBus.RaiseUpdateFans(CurrentValue);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void AdjustStat(float delta)
     {
-
+        base.AdjustStat(delta);
+        PlayerEventBus.RaiseUpdateFans(CurrentValue);
     }
 }

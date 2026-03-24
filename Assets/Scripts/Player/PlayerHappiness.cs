@@ -1,14 +1,20 @@
 
 public class PlayerHappiness : PlayerStat
 {
+    protected override void Start()
+    {
+        base.Start();
+        PlayerEventBus.RaiseHappinessUpdated(CurrentValue, maxValue);
+    }
+
     protected override void Update()
     {
         if (!active) return;
         base.Update();
 
-        if (Resource.IsHappy)
+        if (isUsingResource)
         {
-            ImproveStat();
+            FillStat(fillRate);
         }
         else
         {
@@ -16,15 +22,15 @@ public class PlayerHappiness : PlayerStat
         }
     }
 
-    protected override void ImproveStat()
+    protected override void FillStat(float fillRate)
     {
-        base.ImproveStat();
-        PlayerEventBus.RaiseHappinessUpdated(currentValue, maxValue);
+        base.FillStat(fillRate);
+        PlayerEventBus.RaiseHappinessUpdated(CurrentValue, maxValue);
     }
 
     protected override void DecayStat()
     {
         base.DecayStat();
-        PlayerEventBus.RaiseHappinessUpdated(currentValue, maxValue);
+        PlayerEventBus.RaiseHappinessUpdated(CurrentValue, maxValue);
     }
 }

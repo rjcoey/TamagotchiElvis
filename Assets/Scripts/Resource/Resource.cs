@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 /// <summary>
 /// Base class for all interactable resources in the game world (e.g., food, guitar, bed).
@@ -7,30 +6,37 @@ using UnityEngine.AI;
 /// </summary>
 public class Resource : MonoBehaviour
 {
+    [SerializeField] private StatName statName;
     [SerializeField] private ResourceTooltipUI tooltip;
     [field: SerializeField] public Transform UsePoint { get; private set; }
     [SerializeField] private UpgradeLevel[] upgradeLevels = new UpgradeLevel[3];
     [SerializeField] private MeshRenderer[] meshRenderers;
 
-    protected float resourceFillRate;
+    protected float fillRate;
     public int CurrentLevel { get; private set; }
     public int UpgradeCost { get { return upgradeLevels[CurrentLevel].cost; } }
 
-    public static bool IsEating = false;
-    public static bool IsHappy = false;
-    public static bool IsPractising = false;
+    private PlayerStatController playerStats;
 
     void Awake()
     {
+        playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStatController>();
+
         if (upgradeLevels.Length > 0)
         {
-            resourceFillRate = upgradeLevels[0].fillRate;
+            fillRate = upgradeLevels[0].fillRate;
         }
     }
 
-    public virtual void Use() { }
+    public void Use()
+    {
+        PlayerEventBus.RaiseUseResource(statName, fillRate);
+    }
 
-    public virtual void StopUsing() { }
+    public void StopUsing()
+    {
+        PlayerEventBus.RaiseStopUseResource(statName);
+    }
 
     public void ShowToolTip()
     {
@@ -65,12 +71,20 @@ public class Resource : MonoBehaviour
         }
     }
 
-    public void TryUpgrade()
+    public bool TryUpgrade()
     {
-        if (CurrentLevel >= upgradeLevels.Length - 1) return;
-        // playerStats.DecreaseCash(UpgradeCost);
+        // Cancel upgrade and return false if resource already maxxed out
+        if (CurrentLevel >= upgradeLevels.Length - 1) return false;
+
+        // Cancel upgrade and return false if not enough cash 
+        if (!playerStats.CanUpgrade(UpgradeCost)) return false;
+
+        // Run upgrade
+        playerStats.AdjustStat(StatName.CASH, -UpgradeCost);
         CurrentLevel++;
+        fillRate = upgradeLevels[CurrentLevel].fillRate;
         tooltip.InitTooltip(this);
+        return true;
     }
 }
 

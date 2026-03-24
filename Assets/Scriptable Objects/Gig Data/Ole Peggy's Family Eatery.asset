@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ole Peggy's Family Eatery
   m_EditorClassIdentifier: 
   <GigLocation>k__BackingField: Ole Peggy's Family Eatery
-  <DaysUntilGig>k__BackingField: 3
+  <DaysUntilGig>k__BackingField: 1
   <BaseGigFans>k__BackingField: 10
   <GigFansRating>k__BackingField: 1
   <BaseGigCash>k__BackingField: 75

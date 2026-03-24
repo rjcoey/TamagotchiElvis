@@ -6,7 +6,6 @@ public class PlayerStat : MonoBehaviour
     [field: SerializeField] public StatName StatName { get; private set; }
     [SerializeField] private float startValue = 50.0f;
     [SerializeField] private float valueDecayRate = 0.5f;
-    [SerializeField] private float valueIncreaseRate = 5.0f;
     [SerializeField] protected float maxValue = 100.0f;
 
     [SerializeField][Range(0, 1)] protected float lowerHealthEventThreshold = 0.1f;
@@ -17,71 +16,95 @@ public class PlayerStat : MonoBehaviour
     [SerializeField] protected GameOverReason fullReason;
     [SerializeField] protected GameOverReason emptyReason;
 
-    protected float currentValue;
+    [SerializeField] private bool healthStat = true;
+
+    public float CurrentValue { get; private set; }
+    protected float fillRate = 0.0f;
     protected bool active = false;
+    protected bool isUsingResource = false;
+
     private bool healthEventActive = false;
 
-    void OnEnable()
+
+    protected virtual void OnEnable()
     {
         PlayerEventBus.OnEnablePlayer += ActivateStat;
         PlayerEventBus.OnDisablePlayer += DisableStat;
     }
 
-    void OnDisable()
+    protected virtual void OnDisable()
     {
         PlayerEventBus.OnEnablePlayer -= ActivateStat;
         PlayerEventBus.OnDisablePlayer -= DisableStat;
     }
 
-    void Start()
+    protected virtual void Start()
     {
         ResetStat();
     }
 
-    private void ResetStat()
-    {
-        currentValue = startValue;
-        healthEffect.SetActive(false);
-    }
-
     protected virtual void Update()
     {
-        if (healthEventActive && currentValue > lowerHealthEventThreshold * maxValue && currentValue < upperHealthEventThreshold * maxValue)
+        if (healthEventActive && CurrentValue > lowerHealthEventThreshold * maxValue && CurrentValue < upperHealthEventThreshold * maxValue)
         {
             healthEffect.SetActive(false);
             healthEventActive = false;
         }
     }
 
+    private void ResetStat()
+    {
+        CurrentValue = startValue;
+        healthEffect?.SetActive(false);
+    }
+
+    public virtual void StartStatFill(float fillRate)
+    {
+        isUsingResource = true;
+        this.fillRate = fillRate;
+    }
+
+    public void StopStatFill()
+    {
+        isUsingResource = false;
+    }
+
+    public float GetScore()
+    {
+        return CurrentValue / maxValue;
+    }
+
     public virtual void AdjustStat(float delta)
     {
-        currentValue = Mathf.Clamp(currentValue + delta, 0.0f, maxValue);
+        CurrentValue = Mathf.Clamp(CurrentValue + delta, 0.0f, maxValue);
         HandleHealthEvent();
         HandleGameOver();
     }
 
-    protected virtual void ImproveStat()
+    protected virtual void FillStat(float improveRate)
     {
-        currentValue = Mathf.Min(maxValue, currentValue + valueIncreaseRate * Time.deltaTime);
+        CurrentValue = Mathf.Min(maxValue, CurrentValue + improveRate * Time.deltaTime);
         HandleHealthEvent();
         HandleGameOver();
     }
 
     protected virtual void DecayStat()
     {
-        currentValue = Mathf.Max(0.0f, currentValue - valueDecayRate * Time.deltaTime);
+        CurrentValue = Mathf.Max(0.0f, CurrentValue - valueDecayRate * Time.deltaTime);
         HandleHealthEvent();
         HandleGameOver();
     }
 
     private void HandleHealthEvent()
     {
-        if (!healthEventActive && currentValue > upperHealthEventThreshold * maxValue)
+        if (!healthStat) return;
+
+        if (!healthEventActive && CurrentValue > upperHealthEventThreshold * maxValue)
         {
             healthEffect.SetActive(true);
             healthEventActive = true;
         }
-        else if (currentValue < lowerHealthEventThreshold * maxValue)
+        else if (CurrentValue < lowerHealthEventThreshold * maxValue)
         {
             healthEffect.SetActive(true);
             healthEventActive = true;
@@ -90,11 +113,13 @@ public class PlayerStat : MonoBehaviour
 
     private void HandleGameOver()
     {
-        if (currentValue >= maxValue)
+        if (!healthStat) return;
+
+        if (CurrentValue >= maxValue)
         {
             GameManager.Instance.TriggerGameOver(fullReason);
         }
-        else if (currentValue <= 0)
+        else if (CurrentValue <= 0)
         {
             GameManager.Instance.TriggerGameOver(emptyReason);
         }

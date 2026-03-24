@@ -15,8 +15,8 @@ public class FansUI : MonoBehaviour
         PlayerEventBus.OnFansUpdated -= UpdateFansText;
     }
 
-    void UpdateFansText(int fansTotal)
+    void UpdateFansText(float fansTotal)
     {
-        fansText.text = fansTotal.ToString();
+        fansText.text = fansTotal.ToString("F0");
     }
 }

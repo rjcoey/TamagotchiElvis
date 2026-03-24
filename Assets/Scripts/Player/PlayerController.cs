@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private Resource currentResource;
 
     private bool active = false;
+    private bool usingResource = false;
 
     void OnEnable()
     {
@@ -80,6 +81,7 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     agent.SetDestination(hit.point);
+                    if (usingResource) usingResource = false;
                     currentResource?.StopUsing();
                     currentResource?.HideTooltip();
                     currentResource = null;
@@ -91,8 +93,9 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (currentResource != null && Vector2.Distance(currentResource.UsePoint.position, transform.position) < 0.5f)
+        if (currentResource != null && Vector2.Distance(currentResource.UsePoint.position, transform.position) < 0.2f && !usingResource)
         {
+            usingResource = true;
             currentResource.Use();
         }
 
@@ -118,6 +121,7 @@ public class PlayerController : MonoBehaviour
         agent.isStopped = true;
         currentResource?.StopUsing();
         currentResource = null;
+        usingResource = false;
         active = false;
     }
 
@@ -126,6 +130,7 @@ public class PlayerController : MonoBehaviour
         if (currentResource != resource)
         {
             currentResource?.StopUsing();
+            if (usingResource) usingResource = false;
             currentResource = resource;
             currentResource.HideTooltip();
             agent.SetDestination(resource.UsePoint.position);

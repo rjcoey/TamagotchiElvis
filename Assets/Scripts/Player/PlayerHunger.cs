@@ -1,13 +1,19 @@
 public class PlayerHunger : PlayerStat
 {
+    protected override void Start()
+    {
+        base.Start();
+        PlayerEventBus.RaiseHungerUpdated(CurrentValue, maxValue);
+    }
+
     protected override void Update()
     {
         if (!active) return;
         base.Update();
 
-        if (Resource.IsEating)
+        if (isUsingResource)
         {
-            ImproveStat();
+            FillStat(fillRate);
         }
         else
         {
@@ -15,16 +21,16 @@ public class PlayerHunger : PlayerStat
         }
     }
 
-    protected override void ImproveStat()
+    protected override void FillStat(float fillRate)
     {
-        base.ImproveStat();
-        PlayerEventBus.RaiseHungerUpdated(currentValue, maxValue);
+        base.FillStat(fillRate);
+        PlayerEventBus.RaiseHungerUpdated(CurrentValue, maxValue);
     }
 
     protected override void DecayStat()
     {
         base.DecayStat();
-        PlayerEventBus.RaiseHungerUpdated(currentValue, maxValue);
+        PlayerEventBus.RaiseHungerUpdated(CurrentValue, maxValue);
     }
 }
 

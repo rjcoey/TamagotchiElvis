@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -5,14 +6,18 @@ public class CashUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI numberText;
 
-
-    private void IncreaseCashUI(int cashTotal)
+    void OnEnable()
     {
-        numberText.text = $"${cashTotal}";
+        PlayerEventBus.OnCashUpdated += UpdateCash;
     }
 
-    private void DecreaseCashUI(int cashTotal)
+    void OnDisable()
     {
-        numberText.text = $"${cashTotal}";
+        PlayerEventBus.OnCashUpdated -= UpdateCash;
+    }
+
+    private void UpdateCash(float cashTotal)
+    {
+        numberText.text = $"${cashTotal:F0}";
     }
 }

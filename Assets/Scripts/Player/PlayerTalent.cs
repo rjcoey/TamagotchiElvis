@@ -1,14 +1,20 @@
 
 public class PlayerTalent : PlayerStat
 {
+    protected override void Start()
+    {
+        base.Start();
+        PlayerEventBus.RaiseTalentUpdated(CurrentValue, maxValue);
+    }
+
     protected override void Update()
     {
         if (!active) return;
         base.Update();
 
-        if (Resource.IsPractising)
+        if (isUsingResource)
         {
-            ImproveStat();
+            FillStat(fillRate);
         }
         else
         {
@@ -16,15 +22,15 @@ public class PlayerTalent : PlayerStat
         }
     }
 
-    protected override void ImproveStat()
+    protected override void FillStat(float fillRate)
     {
-        base.ImproveStat();
-        PlayerEventBus.RaiseTalentUpdated(currentValue, maxValue);
+        base.FillStat(fillRate);
+        PlayerEventBus.RaiseTalentUpdated(CurrentValue, maxValue);
     }
 
     protected override void DecayStat()
     {
         base.DecayStat();
-        PlayerEventBus.RaiseTalentUpdated(currentValue, maxValue);
+        PlayerEventBus.RaiseTalentUpdated(CurrentValue, maxValue);
     }
 }

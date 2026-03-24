@@ -1,16 +1,14 @@
-using UnityEngine;
-
-public class PlayerCash : MonoBehaviour
+public class PlayerCash : PlayerStat
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
-        
+        base.Start();
+        PlayerEventBus.RaiseUpdateCash(CurrentValue);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void AdjustStat(float delta)
     {
-        
+        base.AdjustStat(delta);
+        PlayerEventBus.RaiseUpdateCash(CurrentValue);
     }
 }
