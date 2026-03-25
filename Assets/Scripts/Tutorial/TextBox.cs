@@ -23,6 +23,11 @@ public class TextBox : MonoBehaviour
 
     void Start()
     {
+        ResetText();
+    }
+
+    public void ResetText()
+    {
         textBox.text = "";
     }
 

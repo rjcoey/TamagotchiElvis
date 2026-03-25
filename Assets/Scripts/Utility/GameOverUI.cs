@@ -27,6 +27,7 @@ public class GameOverUI : MonoBehaviour
 
     private void RunGameOver(string message)
     {
+        PlayerEventBus.RaiseHideHUD();
         StartCoroutine(GameOverRoutine(message));
     }
 

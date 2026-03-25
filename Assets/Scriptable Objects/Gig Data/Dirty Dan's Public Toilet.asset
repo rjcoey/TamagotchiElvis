@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dirty Dan's Public Toilet
   m_EditorClassIdentifier: 
   <GigLocation>k__BackingField: Dirty Dan's Public Toilet
-  <DaysUntilGig>k__BackingField: 1
+  <DaysUntilGig>k__BackingField: 2
   <BaseGigFans>k__BackingField: 20
   <GigFansRating>k__BackingField: 2
   <BaseGigCash>k__BackingField: 50

@@ -166,8 +166,8 @@ MonoBehaviour:
   startValue: 50
   valueDecayRate: 0.5
   maxValue: 100
-  lowerHealthEventThreshold: 0.1
-  upperHealthEventThreshold: 0.9
+  lowerHealthEventThreshold: 0.2
+  upperHealthEventThreshold: 0.8
   healthEffect: {fileID: -4468479212142987139, guid: 154591901e5f39244a7b7f2cb2f27541, type: 2}
   fullReason: 0
   emptyReason: 1
@@ -188,8 +188,8 @@ MonoBehaviour:
   startValue: 50
   valueDecayRate: 0.5
   maxValue: 100
-  lowerHealthEventThreshold: 0.1
-  upperHealthEventThreshold: 0.9
+  lowerHealthEventThreshold: 0.2
+  upperHealthEventThreshold: 0.8
   healthEffect: {fileID: 5700237840816233105, guid: 154591901e5f39244a7b7f2cb2f27541, type: 2}
   fullReason: 2
   emptyReason: 3
@@ -210,8 +210,8 @@ MonoBehaviour:
   startValue: 50
   valueDecayRate: 0.5
   maxValue: 100
-  lowerHealthEventThreshold: 0.1
-  upperHealthEventThreshold: 0.9
+  lowerHealthEventThreshold: 0.2
+  upperHealthEventThreshold: 0.8
   healthEffect: {fileID: 8953989691276693367, guid: 154591901e5f39244a7b7f2cb2f27541, type: 2}
   fullReason: 4
   emptyReason: 5
@@ -244,8 +244,8 @@ MonoBehaviour:
   startValue: 50
   valueDecayRate: 0.5
   maxValue: 100
-  lowerHealthEventThreshold: 0.1
-  upperHealthEventThreshold: 0.9
+  lowerHealthEventThreshold: 0
+  upperHealthEventThreshold: 0
   healthEffect: {fileID: 0}
   fullReason: 0
   emptyReason: 0
@@ -266,8 +266,8 @@ MonoBehaviour:
   startValue: 50
   valueDecayRate: 0.5
   maxValue: 100
-  lowerHealthEventThreshold: 0.1
-  upperHealthEventThreshold: 0.9
+  lowerHealthEventThreshold: 0
+  upperHealthEventThreshold: 0
   healthEffect: {fileID: 0}
   fullReason: 0
   emptyReason: 0

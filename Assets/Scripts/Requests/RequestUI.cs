@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +10,7 @@ public class RequestUI : MonoBehaviour
     [SerializeField] private AnimationCurve scaleCurve;
 
     [SerializeField] private TextMeshProUGUI titleText;
-    [SerializeField] private TextMeshProUGUI bodyText;
+    [SerializeField] private TextBox bodyTextBox;
     [SerializeField] private GameObject buttonsObject;
 
     [SerializeField] private PlayerStatController playerStats;
@@ -38,7 +39,6 @@ public class RequestUI : MonoBehaviour
     public void AcceptRequest()
     {
         titleText.transform.localScale = Vector3.zero;
-        bodyText.text = string.Empty;
         buttonsObject.SetActive(false);
         StartCoroutine(Co_AcceptRequest());
     }
@@ -46,7 +46,6 @@ public class RequestUI : MonoBehaviour
     public void DeclineRequest()
     {
         titleText.transform.localScale = Vector3.zero;
-        bodyText.text = string.Empty;
         buttonsObject.SetActive(false);
         StartCoroutine(Co_DeclineRequest());
     }
@@ -56,20 +55,33 @@ public class RequestUI : MonoBehaviour
         currentRequest = request;
         titleText.transform.localScale = Vector3.zero;
         titleText.text = string.Empty;
-        bodyText.text = string.Empty;
         buttonsObject.SetActive(false);
         StartCoroutine(Co_DisplayRequest(currentRequest));
     }
 
+    private IEnumerator Co_DisplayRequest(RequestDataSO request)
+    {
+        titleText.text = request.RequestTitle;
+        yield return canvasFader.Co_FadeIn(fadeDuration);
+        yield return UITweener.LerpElementSize(titleText.transform, Vector3.zero, Vector3.one, 0.5f, scaleCurve);
+
+        yield return Co_PlayDialogue(request.SetupText);
+
+        buttonsObject.SetActive(true);
+    }
+
     private IEnumerator Co_AcceptRequest()
     {
+        bodyTextBox.ResetText();
+
         titleText.text = "ACCEPTED";
 
         playerStats.AdjustStat(currentRequest.StatToIncrease, currentRequest.IncreaseAmount);
         playerStats.AdjustStat(currentRequest.StatToDecrease, currentRequest.DecreaseAmount);
 
         yield return UITweener.LerpElementSize(titleText.transform, Vector3.zero, Vector3.one, 0.5f, scaleCurve);
-        yield return Typewriter.TypewriterEffect(bodyText, currentRequest.AcceptedText);
+
+        yield return Co_PlayDialogue(currentRequest.AcceptedText);
 
         yield return new WaitUntil(() => clickAction.WasCompletedThisFrame());
         yield return canvasFader.Co_FadeOut(fadeDuration);
@@ -79,10 +91,12 @@ public class RequestUI : MonoBehaviour
 
     private IEnumerator Co_DeclineRequest()
     {
+        bodyTextBox.ResetText();
         titleText.text = "DECLINED";
 
         yield return UITweener.LerpElementSize(titleText.transform, Vector3.zero, Vector3.one, 0.5f, scaleCurve);
-        yield return Typewriter.TypewriterEffect(bodyText, currentRequest.RejectedText);
+
+        yield return Co_PlayDialogue(currentRequest.RejectedText);
 
         yield return new WaitUntil(() => clickAction.WasCompletedThisFrame());
         yield return canvasFader.Co_FadeOut(fadeDuration);
@@ -90,13 +104,23 @@ public class RequestUI : MonoBehaviour
         RequestEventBus.RaiseCompleteRequest();
     }
 
-    private IEnumerator Co_DisplayRequest(RequestDataSO request)
+    private IEnumerator Co_PlayDialogue(string text)
     {
-        titleText.text = request.RequestTitle;
-        yield return canvasFader.Co_FadeIn(fadeDuration);
-        yield return UITweener.LerpElementSize(titleText.transform, Vector3.zero, Vector3.one, 0.5f, scaleCurve);
-        yield return Typewriter.TypewriterEffect(bodyText, request.SetupText);
-        buttonsObject.SetActive(true);
+        bodyTextBox.StartTyping(text);
 
+        while (bodyTextBox.IsTyping)
+        {
+            if (clickAction.WasPerformedThisFrame())
+            {
+                bodyTextBox.SkipTypewriter();
+            }
+            yield return null;
+        }
+        yield return null;
+
+        while (!clickAction.WasPerformedThisFrame())
+        {
+            yield return null;
+        }
     }
 }
