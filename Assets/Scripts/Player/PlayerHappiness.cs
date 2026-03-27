@@ -22,6 +22,12 @@ public class PlayerHappiness : PlayerStat
         }
     }
 
+    public override void AdjustStat(float delta)
+    {
+        base.AdjustStat(delta);
+        PlayerEventBus.RaiseHappinessUpdated(CurrentValue, maxValue);
+    }
+
     protected override void FillStat(float fillRate)
     {
         base.FillStat(fillRate);

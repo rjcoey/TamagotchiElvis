@@ -1,22 +1,12 @@
-using UnityEngine;
-using UnityEngine.UI;
-
-public class HungerUI : MonoBehaviour
+public class HungerUI : StatUI
 {
-    [SerializeField] private Image hungerFill;
-
     void OnEnable()
     {
-        PlayerEventBus.OnHungerUpdated += UpdateHungerUI;
+        PlayerEventBus.OnHungerUpdated += UpdateUIBar;
     }
 
     void OnDisable()
     {
-        PlayerEventBus.OnHungerUpdated -= UpdateHungerUI;
-    }
-
-    private void UpdateHungerUI(float currentHunger, float maxHunger)
-    {
-        hungerFill.fillAmount = currentHunger / maxHunger;
+        PlayerEventBus.OnHungerUpdated -= UpdateUIBar;
     }
 }

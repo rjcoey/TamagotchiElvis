@@ -1,22 +1,15 @@
 using UnityEngine.UI;
 using UnityEngine;
 
-public class HappinessUI : MonoBehaviour
+public class HappinessUI : StatUI
 {
-    [SerializeField] private Image happinessFill;
-
     void OnEnable()
     {
-        PlayerEventBus.OnHappinessUpdated += UpdateHappinessUI;
+        PlayerEventBus.OnHappinessUpdated += UpdateUIBar;
     }
 
     void OnDisable()
     {
-        PlayerEventBus.OnHappinessUpdated -= UpdateHappinessUI;
-    }
-
-    private void UpdateHappinessUI(float currentHappiness, float maxHappiness)
-    {
-        happinessFill.fillAmount = currentHappiness / maxHappiness;
+        PlayerEventBus.OnHappinessUpdated -= UpdateUIBar;
     }
 }

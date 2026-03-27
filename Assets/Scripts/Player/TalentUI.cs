@@ -1,23 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TalentUI : MonoBehaviour
+public class TalentUI : StatUI
 {
-    [SerializeField] private Image talentFill;
-
-
     void OnEnable()
     {
-        PlayerEventBus.OnTalentUpdated += UpdateTalentUI;
+        PlayerEventBus.OnTalentUpdated += UpdateUIBar;
     }
 
     void OnDisable()
     {
-        PlayerEventBus.OnTalentUpdated -= UpdateTalentUI;
-    }
-
-    private void UpdateTalentUI(float currentTalent, float maxTalent)
-    {
-        talentFill.fillAmount = currentTalent / maxTalent;
+        PlayerEventBus.OnTalentUpdated -= UpdateUIBar;
     }
 }

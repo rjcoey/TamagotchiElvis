@@ -22,6 +22,12 @@ public class PlayerTalent : PlayerStat
         }
     }
 
+    public override void AdjustStat(float delta)
+    {
+        base.AdjustStat(delta);
+        PlayerEventBus.RaiseTalentUpdated(CurrentValue, maxValue);
+    }
+
     protected override void FillStat(float fillRate)
     {
         base.FillStat(fillRate);

@@ -320,7 +320,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951e3548dd7e47a418d5e072d7c42118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  happinessFill: {fileID: 1696871726381720045}
+  barFill: {fileID: 1696871726381720045}
+  baseColor: {r: 0.90588236, g: 0.4352941, b: 0.31764704, a: 1}
+  goodFlashColor: {r: 1, g: 1, b: 1, a: 1}
+  badFlashColor: {r: 0.899371, g: 0.4223461, b: 0.39877757, a: 1}
+  flashDuration: 0.5
+  fillMaterial: {fileID: 2100000, guid: 426c8a672280310409e0b3a0038e5178, type: 2}
+  feedbackThreshold: 0.05
 --- !u!1 &2057518357962375629
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,8 +808,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.38039216, g: 0.60784316, b: 0.5411765, a: 1}
+  m_Material: {fileID: 2100000, guid: 85c9c613f9a21944c8ac97c1f5303355, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1453,7 +1459,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2505bc29ea302f04b8a4336974700387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  talentFill: {fileID: 4743991691421223009}
+  barFill: {fileID: 4743991691421223009}
+  baseColor: {r: 0.7568628, g: 0.5098039, b: 0, a: 1}
+  goodFlashColor: {r: 1, g: 1, b: 1, a: 1}
+  badFlashColor: {r: 0.899371, g: 0.4223461, b: 0.39877757, a: 1}
+  flashDuration: 0.5
+  fillMaterial: {fileID: 2100000, guid: 3aa6bad5dd4a814489d6e16dc9a747ef, type: 2}
+  feedbackThreshold: 0.05
 --- !u!1 &5603003935542000759
 GameObject:
   m_ObjectHideFlags: 0
@@ -1723,7 +1735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 3aa6bad5dd4a814489d6e16dc9a747ef, type: 2}
   m_Color: {r: 0.9882353, g: 0.7921569, b: 0.27450982, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1941,7 +1953,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a69fe843805459448f62ee5aeeceaf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hungerFill: {fileID: 2622692760513590280}
+  barFill: {fileID: 2622692760513590280}
+  baseColor: {r: 0.38039216, g: 0.60784316, b: 0.5411765, a: 1}
+  goodFlashColor: {r: 1, g: 1, b: 1, a: 1}
+  badFlashColor: {r: 0.899371, g: 0.4223461, b: 0.39877757, a: 1}
+  flashDuration: 0.5
+  fillMaterial: {fileID: 2100000, guid: 85c9c613f9a21944c8ac97c1f5303355, type: 2}
+  feedbackThreshold: 0.15
 --- !u!1 &7188207088189766057
 GameObject:
   m_ObjectHideFlags: 0
@@ -2697,7 +2715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 426c8a672280310409e0b3a0038e5178, type: 2}
   m_Color: {r: 0.99607843, g: 0.49803922, b: 0.1764706, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}

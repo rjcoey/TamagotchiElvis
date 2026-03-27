@@ -1220,7 +1220,7 @@
         "preventRotation": false
     },
     "m_Path": "Shader Graphs",
-    "m_GraphPrecision": 1,
+    "m_GraphPrecision": 2,
     "m_PreviewMode": 2,
     "m_OutputNode": {
         "m_Id": ""
@@ -2408,8 +2408,8 @@
     "m_ObjectId": "365161974e7549518495ea0e05bfef41",
     "m_Title": "Detect edges based on colors",
     "m_Position": {
-        "x": -3188.66650390625,
-        "y": 824.0000610351563
+        "x": -3188.6669921875,
+        "y": 824.0
     }
 }
 
@@ -6721,7 +6721,7 @@
     "m_ObjectId": "eae9c14ad94b4c8c808691698664a265",
     "m_Title": "Detect edges based on world space normals",
     "m_Position": {
-        "x": -3175.999755859375,
+        "x": -3176.000244140625,
         "y": 8.66668701171875
     }
 }

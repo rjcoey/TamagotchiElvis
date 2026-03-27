@@ -31,7 +31,6 @@ public class PlayerStatController : MonoBehaviour
     public void AdjustStat(StatName statName, float delta)
     {
         PlayerStat stat = GetStatByName(statName);
-
         stat.AdjustStat(delta);
     }
 

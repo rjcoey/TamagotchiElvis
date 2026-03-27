@@ -24,7 +24,7 @@ void MainLight_float(float3 WorldPos, out float3 Direction, out float3 Color, ou
     Direction = mainLight.direction;
     Color = mainLight.color;
     DistanceAtten = mainLight.distanceAttenuation;
-    ShadowAtten = mainLight.shadowAttenuation;
+    ShadowAtten = (float)mainLight.shadowAttenuation;
 #endif
 }
 

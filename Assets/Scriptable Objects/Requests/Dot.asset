@@ -20,6 +20,6 @@ MonoBehaviour:
   <RejectedText>k__BackingField: 'Best not you gotta keep a clear mind for your guitar
     playing shenanigans. '
   <StatToIncrease>k__BackingField: 3
-  <IncreaseAmount>k__BackingField: 10
+  <IncreaseAmount>k__BackingField: 20
   <StatToDecrease>k__BackingField: 1
-  <DecreaseAmount>k__BackingField: 10
+  <DecreaseAmount>k__BackingField: 20

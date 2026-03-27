@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -77,7 +76,7 @@ public class RequestUI : MonoBehaviour
         titleText.text = "ACCEPTED";
 
         playerStats.AdjustStat(currentRequest.StatToIncrease, currentRequest.IncreaseAmount);
-        playerStats.AdjustStat(currentRequest.StatToDecrease, currentRequest.DecreaseAmount);
+        playerStats.AdjustStat(currentRequest.StatToDecrease, -currentRequest.DecreaseAmount);
 
         yield return UITweener.LerpElementSize(titleText.transform, Vector3.zero, Vector3.one, 0.5f, scaleCurve);
 

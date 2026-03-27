@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class PlayerHunger : PlayerStat
 {
     protected override void Start()
@@ -19,6 +21,12 @@ public class PlayerHunger : PlayerStat
         {
             DecayStat();
         }
+    }
+
+    public override void AdjustStat(float delta)
+    {
+        base.AdjustStat(delta);
+        PlayerEventBus.RaiseHungerUpdated(CurrentValue, maxValue);
     }
 
     protected override void FillStat(float fillRate)
